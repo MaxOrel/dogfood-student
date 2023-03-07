@@ -1,9 +1,11 @@
-import "./styles.css";
+import cn from 'classnames';
+
+import s from "./styles.module.css";
 
 export function Header({ children }) {
   return (
-    <header className="header">
-      <div className="container header__wrapper">{children}</div>
+    <header className={s.header}>
+      <div className={cn('container', s.wrapper)}>{children}</div>
     </header>
   );
 }

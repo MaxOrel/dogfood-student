@@ -6,7 +6,8 @@ import { Sort } from "../sort";
 import { Logo } from "../logo";
 import { Search } from "../search";
 import { dataCard } from "../../data";
-import "./styles.css";
+import s from "./styles.module.css";
+import { Button } from '../button';
 
 export function App() {
   const [cards, setCards] = useState(dataCard);
@@ -31,6 +32,11 @@ export function App() {
   useEffect(() => {
     handleRequest();
   }, [searchQuery]);
+  const margin = 40;
+  const headerStyle = {
+    color: "red",
+    margin: `${margin}px`,
+  }
 
   return (
     <>
@@ -42,6 +48,12 @@ export function App() {
         />
       </Header>
       <main className="content container">
+        {/* <h1 style={headerStyle}>Стилизованный заголовок</h1>
+        <Button htmlType='button' type="primary" extraClass={s.button}>Купить</Button>
+        <Button htmlType='button' type="secondary">Отложить</Button>
+        <Button htmlType='button' type="error" extraClass={s.button}>Купить</Button> */}
+
+        <Button htmlType='button'>Купить</Button>
         <Sort />
         <CardList goods={cards} />
       </main>

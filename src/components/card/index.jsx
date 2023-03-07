@@ -1,3 +1,5 @@
+import cn from 'classnames';
+
 import "./styles.css";
 import likeIcon from "../../images/save.svg";
 
@@ -8,6 +10,7 @@ export function Card({
   wight,
   description,
   picture,
+  tags,
   ...props
 }) {
   const discount_price = Math.round(price - (price * discount) / 100);
@@ -17,6 +20,12 @@ export function Card({
       <div className="card__sticky card__sticky_type_top-left">
         {discount !== 0 && (
           <span className="card__discount">{`-${discount}%`}</span>
+        )}
+        {tags && tags.map(tagName => (
+          <span className={cn('tag', { [`tag_type_${tagName}`]: true })}>
+            {tagName}
+          </span>
+        )
         )}
       </div>
       <div className="card__sticky card__sticky_type_top-right">

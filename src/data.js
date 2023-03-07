@@ -9,7 +9,8 @@ export const dataCard = [
 		"isCart": false,
 		"available": true,
 		"stock": 10,
-		"picture": "https://react-learning.ru/image-compressed/1.jpg"
+		"picture": "https://react-learning.ru/image-compressed/1.jpg",
+		"tags": ['sale', 'new']
 	},
 	{
 		"name": "Куриные желудочки для собак",
