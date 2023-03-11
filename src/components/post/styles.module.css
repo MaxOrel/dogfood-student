@@ -1,0 +1,13 @@
+.card-icon-expend {
+    transform: rotate(180deg);
+}
+
+.card-icon {
+    transform: rotate(0deg);
+    margin-left: auto;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
