@@ -99,6 +99,22 @@
 	display: flex;
 }
 
+.card__favorite svg {
+	fill: #FFFFFF;
+}
+
+.card__favorite svg path:first-child {
+	fill: #7b8e98;
+}
+
+.card__favorite_is-active svg {
+	fill: #F44336;
+}
+
+.card__favorite_is-active svg path:first-child {
+	fill: #F44336;
+}
+
 .card__cart {
 	margin-top: auto;
 }
@@ -124,6 +140,7 @@
 .btn_type_primary {
 	background-color: #FFE44D;
 }
+
 .btn_type_primary:hover {
 	background-color: #FFAA0D;
 	color: #F44336;
@@ -141,6 +158,7 @@
 	background-color: #03A9F4;
 	color: #FFFFFF;
 }
+
 .tag_type_sale {
 	background-color: #01A54E;
 	color: #FFFFFF;

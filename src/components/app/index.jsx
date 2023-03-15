@@ -9,16 +9,26 @@ import { dataCard } from "../../data";
 import s from "./styles.module.css";
 import { Button } from '../button';
 // import styled from 'styled-components';
+import api from '../../utils/api';
+import { useDebounce } from '../../hooks/useDebounce';
+import { isLiked } from '../../utils/products';
 
 export function App() {
-  const [cards, setCards] = useState(dataCard);
+  const [cards, setCards] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const debounceSearchQuery = useDebounce(searchQuery, 300)
   function handleRequest() {
-    const filterCards = dataCard.filter((item) =>
-      item.name.includes(searchQuery)
-    );
-    setCards(filterCards);
+    // const filterCards = dataCard.filter((item) =>
+    //   item.name.includes(searchQuery)
+    // );
+    // setCards(filterCards);
+
+    api.search(debounceSearchQuery)
+      .then((dataSearch) => {
+        setCards(dataSearch);
+        // console.log(data);
+      })
   }
 
   function handleFormSubmit(e) {
@@ -30,57 +40,42 @@ export function App() {
     setSearchQuery(dataInput);
   }
 
-  useEffect(() => {
-    handleRequest();
-  }, [searchQuery]);
-  const margin = 40;
-  const headerStyle = {
-    color: "red",
-    margin: `${margin}px`,
+  function handleUpdateUser(dataUserUpdate) {
+    api.setUserInfo(dataUserUpdate)
+      .then((updateUserFromServer) => {
+        setCurrentUser(updateUserFromServer)
+      })
   }
 
-  // const Title = styled.h1`
-  //   font-size: 1.5em;
-  //   text-align: center;
-  //   color: palevioletred;
-  // `;
+  function handleProductLike(product) {
+    const like = isLiked(product.likes, currentUser._id)
+    api.changeLikeProductStatus(product._id, like)
+      .then((updateCard) => {
+        const newProducts = cards.map(cardState => {
+          return cardState._id === updateCard._id ? updateCard : cardState
+        })
 
-  // const Button = styled.button`
-  //   background: ${props => props.primary ? "palevioletred" : "white"};
-  //   color: ${props => props.primary ? "white" : "palevioletred"};
+        setCards(newProducts)
+      })
+  }
 
-  //   font-size: 1em;
-  //   margin: 1em;
-  //   padding: 0.25em 1em;
-  //   border: 2px solid palevioletred;
-  //   border-radius: 3px;
-  // `;
+  useEffect(() => {
+    handleRequest();
+  }, [debounceSearchQuery]);
 
 
-  // const TomatoButton = styled(Button)`
-  //   color: tomato;
-  //   border-color: tomato;
-  // `;
-
-  // const StyledLink = styled(Logo)`
-  //   color: palevioletred;
-  //   font-weight: bold;
-  // `;
-
-  // const LayoutStyled = styled.div`
-  //   .container  {
-  //     background: red;
-
-  //     &:hover {
-  //       background: green;
-  //     }
-  //   }
-
-  // `
+  useEffect(() => {
+    api.getAllInfo()
+      .then(([productsData, userInfoData]) => {
+        setCurrentUser(userInfoData);
+        setCards(productsData.products);
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   return (
     <>
-      <Header>
+      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <Logo />
         <Search
           handleFormSubmit={handleFormSubmit}
@@ -88,17 +83,8 @@ export function App() {
         />
       </Header>
       <main className="content container">
-        {/* <Title>Стилизованный заголовок</Title>
-        <Button>Купить</Button>
-        <Button primary>Отложить</Button>
-        <TomatoButton as="a" href="#">Удалить</TomatoButton>
-        <StyledLink>Ссылка</StyledLink> */}
-        {/* <h1 style={headerStyle}>Стилизованный заголовок</h1>
-        <Button htmlType='button' type="primary" extraClass={s.button}>Купить</Button>
-        <Button htmlType='button' type="secondary">Отложить</Button>
-        <Button htmlType='button' type="error" extraClass={s.button}>Купить</Button> */}
         <Sort />
-        <CardList goods={cards} />
+        <CardList goods={cards} onProductLike={handleProductLike} currentUser={currentUser} />
       </main>
       <Footer />
     </>
