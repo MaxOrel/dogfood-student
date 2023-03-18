@@ -51,6 +51,17 @@ class Api {
         })
             .then(this.#onResponse)
     }
+
+    getProductById(idProduct) {
+        return fetch(`${this.#baseurl}/products/${idProduct}`, {
+            headers: this.#headers
+        })
+            .then(this.#onResponse)
+    }
+
+    getInfoProduct(idProduct) {
+        return Promise.all([this.getProductById(idProduct), this.getUserInfo()])
+    }
 }
 
 
@@ -58,7 +69,7 @@ const api = new Api({
     baseUrl: 'https://api.react-learning.ru',
     headers: {
         'content-type': 'application/json',
-        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjJmOTk5MmFlNWM0MGMxMGMxMWRmZTQiLCJpYXQiOjE2NDcyODY2ODEsImV4cCI6MTY3ODgyMjY4MX0.WHKXAErKZtY445yXecOFZsx981MuXicJti-okSY-tac'
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDEwN2UwOGFhMzk3MTIxODM4ZjI4OTgiLCJncm91cCI6Imdyb3VwLTExIiwiaWF0IjoxNjc4ODAyNDQzLCJleHAiOjE3MTAzMzg0NDN9.Y7nuAVWeA_CGJipJNTktP9raSdpM41B3s-z4l-8rE70'
     }
 })
 

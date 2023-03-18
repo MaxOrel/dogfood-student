@@ -12,12 +12,18 @@ import { Button } from '../button';
 import api from '../../utils/api';
 import { useDebounce } from '../../hooks/useDebounce';
 import { isLiked } from '../../utils/products';
+import { CatalogPage } from '../../pages/catalog-page';
+import { ProductPage } from '../../pages/product-page';
+import FaqPage from '../../pages/faq-page';
 
 export function App() {
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const debounceSearchQuery = useDebounce(searchQuery, 300)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const debounceSearchQuery = useDebounce(searchQuery, 300);
+
   function handleRequest() {
     // const filterCards = dataCard.filter((item) =>
     //   item.name.includes(searchQuery)
@@ -54,7 +60,6 @@ export function App() {
         const newProducts = cards.map(cardState => {
           return cardState._id === updateCard._id ? updateCard : cardState
         })
-
         setCards(newProducts)
       })
   }
@@ -65,12 +70,14 @@ export function App() {
 
 
   useEffect(() => {
+    setIsLoading(true)
     api.getAllInfo()
       .then(([productsData, userInfoData]) => {
         setCurrentUser(userInfoData);
         setCards(productsData.products);
       })
       .catch(err => console.log(err))
+      .finally(() => { setIsLoading(false) })
   }, [])
 
   return (
@@ -83,8 +90,9 @@ export function App() {
         />
       </Header>
       <main className="content container">
-        <Sort />
-        <CardList goods={cards} onProductLike={handleProductLike} currentUser={currentUser} />
+        <FaqPage />
+        <ProductPage />
+        <CatalogPage cards={cards} handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading} />
       </main>
       <Footer />
     </>
