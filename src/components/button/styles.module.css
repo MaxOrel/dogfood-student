@@ -29,3 +29,13 @@
 .button_type_secondary:hover {
     border-color: #7B8E98;
 }
+
+.button_type_border {
+    background-color: transparent;
+    border-color: #CFD8DC;
+    color: #1A1A1A;
+}
+
+.button_type_border:hover {
+    border-color: #7B8E98;
+}
