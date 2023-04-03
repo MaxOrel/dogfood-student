@@ -7,11 +7,13 @@ import { ReactComponent as LikeIcon } from "../../images/save.svg";
 import truck from "../../images/truck.svg";
 import quality from "../../images/quality.svg";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/current-user-context';
+import { ContentHeader } from '../content-header';
 
-function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], currentUser, reviews }) {
+function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], reviews }) {
+    const { currentUser } = useContext(UserContext)
     const navigate = useNavigate();
-    const location = useLocation();
-    console.log(location);
     const discount_price = calcDiscountPrice(price, discount);
     const like = isLiked(likes, currentUser?._id);
     function handleLikeClick() {
@@ -24,11 +26,9 @@ function Product({ onProductLike, _id, name, pictures, description, discount, pr
 
     return (
         <>
-            <div className={s.header}>
-                <a href="#" className='button-back' onClick={() => navigate(-1)}>Назад</a>
-                <h1 className={s.productTitle}>{name}</h1>
+            <ContentHeader textButton="Назад" title={name}>
                 <p className={s.acticul}>Аартикул: <b>2388907</b></p>
-            </div>
+            </ContentHeader>
             <div className={s.product}>
                 <div className={s.imgWrapper}>
                     <img src={pictures} alt={`Изображение ${name}`} />

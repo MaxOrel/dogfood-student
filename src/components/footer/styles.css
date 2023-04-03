@@ -1,0 +1,153 @@
+.footer__copyright {
+    font-size: 9px;
+    line-height: 12px;
+    color: #1a1a1a;
+    max-width: 180px;
+}
+
+
+.footer {
+    width: 100%;
+    background-color: #FFE44D;
+    padding-top: 40px;
+    padding-bottom: 88px;
+}
+
+.footer__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+
+
+.footer__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-bottom__item {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #1A1A1A;
+    transition: 0.2s ease-in-out;
+}
+
+.menu-bottom__item:hover {
+    color: #7B8E98;
+}
+
+.menu:hover {
+    text-decoration: underline;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: column;
+}
+
+.contacts__title {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.contacts__link {
+    text-decoration: none;
+    color: currentColor;
+    transition: 0.2s ease-in-out;
+}
+
+.contacts__link:hover {
+    color: #F44336;
+}
+
+.contacts__tel {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.contacts__mail {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 12px;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.socials__link {
+    display: flex;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+}
+
+.socials__link:hover {
+    opacity: 1;
+}
+
+
+@media (max-width: 880px) {
+    .wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 40px;
+    }
+
+    .col:last-child {
+        grid-column-start: 2;
+        grid-row-start: 1;
+    }
+}
+
+@media (max-width: 450px) {
+    .wrapper {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .col:last-child {
+        grid-column-start: 1;
+        grid-row-start: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer__logo {
+        display: none;
+    }
+
+    .footer__copyright {
+        display: none;
+    }
+
+    .menu-bottom {
+        display: none;
+    }
+
+    .footer__wrapper {
+        text-align: center;
+        justify-content: center;
+    }
+}
