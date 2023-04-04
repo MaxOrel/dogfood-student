@@ -1,0 +1,18 @@
+.form input {
+    padding: 5px;
+    margin: 5px 0;
+    display: block;
+}
+
+.form button {
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.errorMessage {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: end;
+    color: red;
+    font-size: 12px;
+    max-width: 340px;
+}

@@ -15,7 +15,6 @@ export function Header({ children }) {
   const { currentUser, onUpdateUser } = useContext(UserContext);
   const { favorites } = useContext(CardsContext)
   const { toggleTheme } = useContext(ThemeContext)
-  console.log('currentUser', currentUser);
 
   const handleClickButtonEdit = () => {
     onUpdateUser({ name: 'Вася', about: 'Ментор' })

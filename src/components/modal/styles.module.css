@@ -1,0 +1,38 @@
+.modal {
+    width: 100%;
+    /*растягиваем окно по всей ширине*/
+    height: 100%;
+    /*растягиваем окно по всей высоте*/
+    background-color: rgba(0, 0, 0, 0.4);
+    /*делаем цвет фона черный с прозрачностью 0.4*/
+    position: fixed;
+    /*при скролле модальное окно будет оставаться по середине*/
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+.modal_active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal__content {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    transform: scale(0.5);
+    transition: transform 0.4s;
+}
+
+.modal__content_active {
+    transform: scale(1);
+}
