@@ -1,0 +1,31 @@
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 24px;
+    margin: 8px 0px;
+
+    position: static;
+    width: 356px;
+    border-radius: 55px;
+
+    color: #1A1A1A;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+
+    cursor: pointer;
+}
+
+.pramary {
+    background: #FFE44D;
+    border: none;
+}
+
+.secondary {
+    background: white;
+    border: 0.5px solid #CFD8DC;
+}

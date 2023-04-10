@@ -1,0 +1,27 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 7px 16px;
+    margin: 8px 0px;
+    background: #FFFFFF;
+
+    position: static;
+    width: 100%;
+    height: 48px;
+
+    border: 1px solid #CFD8DC;
+    box-sizing: border-box;
+    border-radius: 12px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #FFE44D;
+}
+
+.textarea {
+    height: auto;
+    min-height: 100px;
+    resize: none;
+}

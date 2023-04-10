@@ -11,6 +11,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/current-user-context';
 import { ContentHeader } from '../content-header';
 import Rating from '../rating';
+import FormReview from '../form-review';
 
 function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], reviews }) {
     const { currentUser } = useContext(UserContext)
@@ -116,6 +117,9 @@ function Product({ onProductLike, _id, name, pictures, description, discount, pr
                     </div>
                 </div>
             </div>
+
+
+            <FormReview title={`Отзыв о товаре ${name}`} />
         </>
     );
 }
