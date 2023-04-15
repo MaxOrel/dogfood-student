@@ -27,6 +27,7 @@ import Modal from '../modal';
 import Register from '../register';
 import Login from '../login';
 import ResetPassword from '../reset-password';
+import DnDPage from '../../pages/dnd-page';
 
 export function App() {
   const [cards, setCards] = useState([]);
@@ -211,7 +212,7 @@ export function App() {
               <Route path='/favorites' element={<FavoritesPage />} />
               <Route path='/faq' element={<FaqPage />} />
               <Route path='/product/:productID' element={<ProductPage />} />
-
+              <Route path='/dnd' element={<DnDPage />} />
               <Route path='/login' element={
                 <Login onSubmit={cbSubmitFormLogin} onNavigateRegister={handleClickButtonRegisterNotModal} onNavigateReset={handleClickButtonResetNotModal} />
               } />

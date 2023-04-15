@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    max-width: 1280px;
+    padding: 0 60px;
+    gap: 60px;
+}
+
+.animals {
+    padding: 20px;
+    width: 50%;
+    min-height: 200px;
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.item {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+    border-radius: 3px;
+}
+
+.description {
+    margin: 0;
+    font-size: 12px;
+}

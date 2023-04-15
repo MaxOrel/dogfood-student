@@ -1,0 +1,9 @@
+.animalElement {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 3px;
+}
