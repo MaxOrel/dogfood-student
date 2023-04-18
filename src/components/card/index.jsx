@@ -68,7 +68,7 @@ export function Card({
           </div>
 
           <Link to={`/product/${_id}`} className="card__link">
-            <img src={pictures} alt={name} className="card__image" />
+            <img src={pictures} alt={name} className="card__image" loading="lazy" />
             <div className="card__desc">
               {discount !== 0 ? (
                 <>

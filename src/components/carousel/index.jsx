@@ -1,11 +1,11 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { register } from 'swiper/element/bundle';
 import "./styles.css";
-import { Card } from '../card';
 
 register();
 
-export function Carousel({ items, component: Component, perView }) {
+function Carousel({ items, component: Component, perView }) {
+  const [data, setData] = useState([])
   const swiperElRef = useRef(null);
   console.log();
   useEffect(() => {
@@ -41,21 +41,27 @@ export function Carousel({ items, component: Component, perView }) {
     //   },
     // }
     Object.assign(swiperElRef.current, {
-      slidesPerView: 3,
-      centeredSlides: true,
+      slidesPerView: perView,
       spaceBetween: 30,
-      pagination: {
-        type: 'bullets',
+      navigation: {
+        nextEl: '.next',
+        prevEl: '.prev'
       },
-      navigation: true,
       virtual: {
-        slides: (function () {
-          console.log(Component);
-          return items.map((dataItem, index) => (
-            // `Slide  + ${index + 1}`
-            <Component key={index} {...dataItem} />
-          ))
-        })(),
+        slides: [...items],
+        // slides: (function () {
+        //   console.log(Component);
+        //   return items.map((dataItem, index) => (
+        //     // `Slide  + ${index + 1}`
+        //     <Component key={index} {...dataItem} />
+        //   ))
+        // })(),
+        renderExternal: function (dataVirtual) {
+          console.log(dataVirtual);
+          setData(dataVirtual)
+        },
+        addSlidesAfter: 0,
+        addSlidesBefore: 0
       },
     });
 
@@ -65,6 +71,7 @@ export function Carousel({ items, component: Component, perView }) {
     //   console.log('slide changed');
     // });
 
+    // items.length !== 0 && swiperElRef.current.initialize()
     items.length !== 0 && swiperElRef.current.initialize()
   }, [items]);
 
@@ -85,9 +92,16 @@ export function Carousel({ items, component: Component, perView }) {
     //     <swiper-slide><Component key={index} {...dataItem} /></swiper-slide>
     //   ))}
     // </swiper-container>
-
-    <swiper-container init="false" ref={swiperElRef}>
-
-    </swiper-container>
+    <>
+      <button className='next'>Вперед</button>
+      <button className='prev'>Назад</button>
+      <swiper-container init="false" ref={swiperElRef}>
+        {data?.slides?.map((dataItem, index) => (
+          <swiper-slide key={dataItem._id} style={{ left: `${data.offset}px` }}><Component {...dataItem} /></swiper-slide>
+        ))}
+      </swiper-container>
+    </>
   );
 }
+
+export default React.memo(Carousel)
