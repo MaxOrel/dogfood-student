@@ -4,9 +4,10 @@ import { Spinner } from '../../components/spinner';
 
 import { CardsContext } from '../../contexts/card-context';
 import { ContentHeader } from '../../components/content-header';
+import { useSelector } from 'react-redux';
 
 export const FavoritesPage = () => {
-    const { favorites: goods } = useContext(CardsContext)
+    const goods = useSelector(state => state.products.favoriteProducts)
 
     return (
         <>

@@ -12,9 +12,11 @@ import { UserContext } from '../../contexts/current-user-context';
 import { ContentHeader } from '../content-header';
 import Rating from '../rating';
 import FormReview from '../form-review';
+import { useSelector } from 'react-redux';
 
-function Product({ onProductLike, _id, name, pictures, description, discount, price, likes = [], reviews }) {
-    const { currentUser } = useContext(UserContext)
+function Product({ onProductLike }) {
+    const { _id, name, pictures, description, discount, price, likes = [], reviews } = useSelector(state => state.singleProduct.data)
+    const currentUser = useSelector(state => state.user.data)
     const [currentRating, setCurrentRating] = useState(5);
     const navigate = useNavigate();
     const discount_price = calcDiscountPrice(price, discount);
