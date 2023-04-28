@@ -29,6 +29,17 @@ function Register({ onSubmit, onNavigateLogin }) {
             message: "Пароль должен содержать минимум восемь символов, одну букву латинского алфавита и одну цифру"
         }
     })
+
+    const groupRegister = register('group', {
+        required: {
+            value: true,
+            message: 'Обязательное поле'
+        },
+        pattern: {
+            value: /^group-[0-9]{1,3}$/,
+            message: "Группа должна соответсвоать формату group-номер"
+        }
+    })
     return (
 
         <Form title="Регистрация" handleFormSubmit={handleSubmit(onSubmit)}>
@@ -41,12 +52,23 @@ function Register({ onSubmit, onNavigateLogin }) {
             {errors?.email && <p className="errorMessage">{errors?.email?.message}</p>}
 
             <FormInput
+                {...groupRegister}
+                id="group"
+                type="text"
+                placeholder="Id группы в формате group-номер "
+            />
+            {errors?.group && <p className="errorMessage">{errors?.group?.message}</p>}
+
+            <FormInput
                 {...passwordRegister}
                 id="password"
                 type="password"
                 placeholder="Пароль"
             />
             {errors?.password && <p className="errorMessage">{errors?.password?.message}</p>}
+
+
+
 
             <p className="infoText">Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>
 

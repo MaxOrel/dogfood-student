@@ -46,10 +46,10 @@ function Rating({ isEditable = false, currentRating, setCurrentRating, error }) 
 
 
     return (
-        <>
+        <div>
             {ratingArray.map((r, i) => <span key={i}>{r}</span>)}
             {error && <span>{error?.message}</span>}
-        </>
+        </div>
 
 
     );

@@ -6,13 +6,15 @@ import s from './styles.module.css';
 import cn from 'classnames';
 import Rating from '../rating';
 import { useState } from 'react';
-
-function FormReview({ title = 'Отзыв о товаре', productId, setProduct }) {
-
+import { useDispatch } from 'react-redux';
+import { fetchCreateReview } from '../../storage/single-product/single-product-slice'
+function FormReview({ title = 'Отзыв о товаре', productId }) {
+    const dispatch = useDispatch()
     const { register, control, handleSubmit, formState: { errors }, reset } = useForm({ mode: "onBlur" })
     // const [rating, setRating] = useState(5);
     const handleSubmitFormReview = (data) => {
         console.log('handleSubmitFormReview', data);
+        dispatch(fetchCreateReview({ productId, data }))
         reset();
     }
     const textRegister = register('text', {

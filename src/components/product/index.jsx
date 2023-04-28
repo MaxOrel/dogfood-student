@@ -6,13 +6,14 @@ import s from './styles.module.css';
 import { ReactComponent as LikeIcon } from "../../images/save.svg";
 import truck from "../../images/truck.svg";
 import quality from "../../images/quality.svg";
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { UserContext } from '../../contexts/current-user-context';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { ContentHeader } from '../content-header';
 import Rating from '../rating';
 import FormReview from '../form-review';
 import { useSelector } from 'react-redux';
+import { Review } from '../review';
+
 
 function Product({ onProductLike }) {
     const { _id, name, pictures, description, discount, price, likes = [], reviews } = useSelector(state => state.singleProduct.data)
@@ -120,8 +121,8 @@ function Product({ onProductLike }) {
                 </div>
             </div>
 
-
-            <FormReview title={`Отзыв о товаре ${name}`} />
+            {reviews.length !== 0 && <div className={s.reviews}> {reviews.map(reviewData => <Review {...reviewData} />)}</div>}
+            <FormReview title={`Отзыв о товаре ${name}`} productId={_id} />
         </>
     );
 }

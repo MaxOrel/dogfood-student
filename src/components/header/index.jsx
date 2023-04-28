@@ -13,13 +13,14 @@ import { ReactComponent as UserIcon } from './img/user.svg';
 
 import s from "./styles.module.css";
 import "./styles.css";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../storage/user/user-slice';
 
 export function Header({ children }) {
   const currentUser = useSelector(state => state.user.data);
   const favorites = useSelector(state => state.products.favoriteProducts)
-  const { toggleTheme } = useContext(ThemeContext)
-  const location = useLocation()
+  const dispatch = useDispatch();
+  const location = useLocation();
   const handleClickButtonEdit = () => {
     // onUpdateUser({ name: 'Вася', about: 'Ментор' })
   }
@@ -39,21 +40,23 @@ export function Header({ children }) {
             {favorites.length !== 0 && <span className={s.iconBubble}>{favorites.length}</span>}
           </Link>
 
-          <Link to='/login' className={s.iconsMenuItem} replace state={{ backgroundLocation: location, initialPath: location.pathname }}>
+          {!currentUser && <Link to='/login' className={s.iconsMenuItem} replace state={{ backgroundLocation: location, initialPath: location.pathname }}>
             <UserIcon />
             Войти
-          </Link>
+          </Link>}
 
 
-          <Link to='/profile' className={s.iconsMenuItem}>
-            <ProfileIcon />
-            Максим
-          </Link>
+          {currentUser && <>
+            <Link to='/profile' className={s.iconsMenuItem}>
+              <ProfileIcon />
+              {currentUser?.name}
+            </Link>
 
-          <Link to='/' className={s.iconsMenuItem}>
-            <LogoutIcon />
-            Выйти
-          </Link>
+            <Link to='/' className={s.iconsMenuItem} onClick={() => dispatch(logout())}>
+              <LogoutIcon />
+              Выйти
+            </Link>
+          </>}
 
         </div>
       </div>
