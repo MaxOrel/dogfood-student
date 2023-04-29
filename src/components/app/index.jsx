@@ -33,6 +33,7 @@ import { checkTokenUser, fetchUser, loginUser, registerUser } from '../../storag
 import { MainPage } from '../../pages/main-page';
 import { ProtectedRoute } from '../protected-route';
 import { getLocalData } from '../../utils/localStorage';
+import CartPage from '../../pages/cart-page';
 
 export function App() {
     const currentUser = useSelector(state => state.user.data)
@@ -69,7 +70,6 @@ export function App() {
         api.search(debounceSearchQuery)
             .then((dataSearch) => {
                 // setCards(dataSearch);
-                // console.log(data);
             })
     }
 
@@ -180,6 +180,11 @@ export function App() {
                     <Route path='/product/:productID' element={
                         <ProtectedRoute>
                             <ProductPage />
+                        </ProtectedRoute>
+                    } />
+                    <Route path='/cart' element={
+                        <ProtectedRoute>
+                            <CartPage />
                         </ProtectedRoute>
                     } />
                     <Route path='/dnd' element={<DnDPage />} />

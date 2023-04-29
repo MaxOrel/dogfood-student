@@ -1,0 +1,11 @@
+.cartTitle {
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 32px;
+    margin-bottom: 20px;
+    grid-area: info;
+}
+
+.cartTitle span {
+    font-weight: 800;
+}

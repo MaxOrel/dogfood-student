@@ -6,7 +6,6 @@ import cn from 'classnames';
 const MAX_COUNT_RATING = 5;
 
 function Rating({ isEditable = false, currentRating, setCurrentRating, error }) {
-    console.log(error);
     const [ratingArray, setRatingArray] = useState(new Array(MAX_COUNT_RATING).fill(<></>))
 
     const constructRating = (filledRating) => {

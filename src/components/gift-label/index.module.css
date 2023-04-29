@@ -1,0 +1,28 @@
+.giftLabel {
+	background: rgba(236, 239, 241, 0.5);
+	border-radius: 8px;
+	padding: 8px;
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	grid-template-areas: 'icon title' 'icon text';
+	column-gap: 8px;
+	align-items: center;
+}
+.giftIcon {
+	grid-area: icon;
+}
+.giftTitle {
+	font-weight: 800;
+	font-size: 12px;
+	line-height: 14px;
+	grid-area: title;
+
+}
+
+.giftText {
+	font-weight: 600;
+	font-size: 9px;
+	line-height: 12px;
+	grid-area: text;
+
+}

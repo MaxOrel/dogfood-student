@@ -5,7 +5,6 @@ dayjs.locale('ru');
 
 export function formattedDate(date) {
     const data = dayjs(date).format("DD MMM YYYY");
-    console.log(data);
     return data.replace('.', "");
 }
 

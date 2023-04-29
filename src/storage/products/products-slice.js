@@ -78,7 +78,6 @@ const productSlice = createSlice({
             })
             .addCase(fetchProducts.fulfilled, (state, action) => {  // { type: products/fetchProducts/pending, payload: {...}}
                 const { products, total, currentUser } = action.payload;
-                console.log('currentUser', currentUser);
                 state.data = products;
                 state.total = total;
                 state.favoriteProducts = products.filter(item => isLiked(item.likes, currentUser._id))

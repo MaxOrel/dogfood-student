@@ -5,7 +5,7 @@ export const Button = ({ type, children, href, extraClass, htmlType = 'button', 
 
     function handleClick(e) {
         href && e.preventDefault();
-        action()
+        action && action();
     }
 
     return (

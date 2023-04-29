@@ -1,0 +1,44 @@
+.wrap {
+	border: 1px solid #cfd8dc;
+	background-color: #fff;
+	height: 48px;
+	border-radius: 100px;
+	display: inline-flex;
+	align-items: center;
+}
+
+.plus,
+.minus {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	height: 100%;
+	width: 40px;
+	cursor: pointer;
+	font-size: 24px;
+	padding: 0;
+}
+
+.num {
+	border: none;
+	padding: 0;
+	font-size: 21px;
+	font-weight: 700;
+	line-height: 24px;
+	width: 30px;
+	display: inline-block;
+	text-align: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	appearance: none
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+	appearance: none;
+	-moz-appearance: textfield;
+}
