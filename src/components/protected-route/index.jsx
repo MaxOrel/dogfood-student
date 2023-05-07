@@ -12,8 +12,8 @@ export function ProtectedRoute({ onlyUnAuth, children }) {
   if (!isAuthChecked) return <Spinner />
 
   if (onlyUnAuth && user) {
-    const { from } = location.state || { from: { pathname: '/' } }
-    const { backgroundLocation } = location?.state?.from?.state || { backgroundLocation: null }
+    const from = location.state.from || { pathname: '/' }
+    const backgroundLocation = location?.state?.from?.state?.backgroundLocation || null;
     return <Navigate replace to={from} state={{ backgroundLocation }} />
   }
 

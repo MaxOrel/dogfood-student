@@ -1,10 +1,16 @@
 import cn from 'classnames';
 import s from './styles.module.css';
 import { createPortal } from 'react-dom';
-import { useEffect, useRef } from 'react';
+import { ReactNode,  useRef } from 'react';
 
-function Modal({ children, isOpen, onClose }) {
-    const refModal = useRef(null)
+interface IModalProps {
+    children: ReactNode;
+    isOpen: boolean;
+    onClose: () => void
+}
+
+function Modal({ children, isOpen, onClose }: IModalProps) {
+    const refModal = useRef<HTMLDivElement>(null)
 
     // function handleClickModal() {
     //     refModal.current.classList.remove(s.modal_active)
@@ -26,7 +32,7 @@ function Modal({ children, isOpen, onClose }) {
         </div>);
     }
 
-    return createPortal(renderContent(), document.getElementById('modal-root'));
+    return createPortal(renderContent(), document.getElementById('modal-root') as HTMLDivElement);
 }
 
 export default Modal;

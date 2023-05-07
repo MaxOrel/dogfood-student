@@ -1,6 +1,6 @@
 import cn from 'classnames';
 
-import { calcDiscountPrice, isLiked } from '../../utils/products';
+import { calcDiscountPrice, checkProductInCart, isLiked } from '../../utils/products';
 import { Button } from '../button';
 import s from './styles.module.css';
 import { ReactComponent as LikeIcon } from "../../images/save.svg";
@@ -13,17 +13,21 @@ import Rating from '../rating';
 import FormReview from '../form-review';
 import { useDispatch, useSelector } from 'react-redux';
 import { Review } from '../review';
-import { addProductCart } from '../../storage/cart/cart-slice';
+import { addProductCart, changeCartQuantity, decrementQuantity, incrementQuantity } from '../../storage/cart/cart-slice';
 import { ProductPrice } from '../product-price';
+import ButtonCount from '../button-count/button-count';
+import { useAppSelector } from '../../storage/hook';
 
 
 function Product({ onProductLike }) {
     const { _id, name, pictures, description, wight, discount, price, likes = [], reviews } = useSelector(state => state.singleProduct.data);
     const addDataProduct = { _id, name, pictures, discount, price, wight }
-
+    const cartProducts = useAppSelector(state => state.cart.data)
     const currentUser = useSelector(state => state.user.data)
     const [currentRating, setCurrentRating] = useState(5);
 
+
+    const productInCartInfo = checkProductInCart(cartProducts, _id);
     const dispatch = useDispatch();
 
     const discount_price = calcDiscountPrice(price, discount);
@@ -53,12 +57,13 @@ function Product({ onProductLike }) {
                 <div className={s.desc}>
                     <ProductPrice discount={discount} price={price} type="big" />
                     <div className={s.btnWrap}>
-                        <div className={s.left}>
-                            <button className={s.minus}>-</button>
-                            <span className={s.num}>0</span>
-                            <button className={s.plus}>+</button>
-                        </div>
-                        <Button href="#" type="primary" action={handleCartClick} >В корзину</Button>
+                        <ButtonCount
+                            amount={productInCartInfo.quantity}
+                            handleIncrement={() => { dispatch(incrementQuantity(addDataProduct)) }}
+                            handleDecrement={() => { dispatch(decrementQuantity(addDataProduct)) }}
+                            handleCountChange={(newQuantity) => { dispatch(changeCartQuantity({ ...addDataProduct, quantity: newQuantity })) }}
+                        />
+                        <Button href="#" type="primary" action={handleCartClick} >{!productInCartInfo.quantity || productInCartInfo.quantity === 0 ? "В корзину" : "Добавлено"}</Button>
                     </div>
                     <button className={cn(s.favorite, { [s.favoriteActive]: like })} onClick={handleLikeClick}>
                         <LikeIcon />

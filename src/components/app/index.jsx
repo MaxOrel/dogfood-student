@@ -155,7 +155,7 @@ export function App() {
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
             <Header>
                 <Routes location={(backgroundLocation && { ...backgroundLocation, pathname: initialPath }) || location}>
-                    <Route path='/' element={
+                    <Route path='/catalog' element={
                         <>
                             <Logo />
                             <Search
