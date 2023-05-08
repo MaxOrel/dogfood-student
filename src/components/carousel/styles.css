@@ -1,0 +1,10 @@
+.swiper,
+swiper-container {
+	display: flex;
+	align-items: stretch;
+}
+
+swiper-slide {
+	height: inherit;
+	display: flex;
+}

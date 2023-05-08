@@ -1,0 +1,7 @@
+.contentCart {
+    display: grid;
+    grid-template-areas: 'info info' 'list amount';
+    column-gap: 60px;
+    grid-template-columns: 2fr 1fr;
+    align-items: flex-start;
+}

@@ -1,0 +1,70 @@
+@import '~normalize.css';
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  scrollbar-gutter: stable;
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+body {
+  font-family: "Nunito", "Arial", "Helvetica", sans-serif;
+  height: 100%;
+}
+
+.container {
+  max-width: 1024px;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+.content {
+  padding: 20px 0;
+  flex: 1;
+}
+
+.content__sort {
+  margin-bottom: 40px;
+}
+
+.result {
+  font-size: 40px;
+}
+
+.infoText {
+  color: #7B8E98;
+  margin: 20px 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.errorMessage {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: end;
+  color: red;
+  font-size: 12px;
+  align-self: flex-start;
+}

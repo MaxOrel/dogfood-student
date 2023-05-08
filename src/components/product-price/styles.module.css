@@ -1,0 +1,48 @@
+.oldPrice {
+    font-size: 0.875em;
+    font-weight: 400;
+    line-height: 1.42;
+    text-decoration: line-through;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 600;
+}
+
+.price {
+    font-size: 1.75em;
+    line-height: 1.14;
+    font-weight: 800;
+    display: block;
+}
+
+.priceDiscount {
+    color: #F44336;
+}
+
+.priceWrap {
+    position: relative;
+    padding-top: 1.2em;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bigPrice {
+    font-size: 16px;
+}
+
+.smallPrice {
+    font-size: 14px;
+}
+
+.left {
+    left: 0;
+    right: auto;
+}
+
+.right {
+    left: auto;
+    right: 0;
+}

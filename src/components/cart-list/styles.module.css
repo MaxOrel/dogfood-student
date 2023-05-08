@@ -1,0 +1,6 @@
+.cartList {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	grid-area: list;
+}

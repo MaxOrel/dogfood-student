@@ -1,0 +1,50 @@
+.wraper {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2em;
+    align-items: center;
+}
+
+.label-text {
+    font-weight: bolder;
+    font-size: 2rem;
+}
+
+.switch-wrap {
+    cursor: pointer;
+    background: #15273b;
+    padding: 4px;
+    width: 50px;
+    height: 29px;
+    border-radius: 14.5px;
+}
+
+.switch-wrap input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 0fr 1fr 1fr;
+    transition: 0.2s;
+}
+
+.switch::after {
+    content: "";
+    border-radius: 50%;
+    background: #ccc;
+    grid-column: 2;
+    transition: background 0.2s;
+}
+
+input:checked+.switch {
+    grid-template-columns: 1fr 1fr 0fr;
+}
+
+input:checked+.switch::after {
+    background-color: #52cf71;
+}
