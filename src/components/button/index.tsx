@@ -3,9 +3,9 @@ import cn from 'classnames';
 import s from './styles.module.css';
 import { MouseEvent, ReactNode } from 'react';
 export enum ButtonVariant {
-    "primary",
-    "secondary",
-    "border",
+    "primary" = "primary",
+    "secondary" = "secondary",
+    "border" = "border",
 }
 
 interface IButtonProps {
