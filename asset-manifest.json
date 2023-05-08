@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "./static/css/main.6f0f6f18.css",
+    "main.js": "./static/js/main.1650544c.js",
+    "static/media/logo.svg": "./static/media/logo.4f9d699de55eb25e196ecc4c87a15a5e.svg",
+    "static/media/quality.svg": "./static/media/quality.8eb6560a188790582a8aaddc99e116ea.svg",
+    "static/media/instagram.svg": "./static/media/instagram.54cbf40d1b69370b6a2ec029eefc269c.svg",
+    "static/media/vk.svg": "./static/media/vk.5a6b12bf142f67e2138c1e6c69952975.svg",
+    "static/media/profile.svg": "./static/media/profile.92abfa23e488bbe184d56f26a5e537c7.svg",
+    "static/media/viber.svg": "./static/media/viber.b4234cd18a8ffefb8ebb172506996cea.svg",
+    "static/media/whatsapp.svg": "./static/media/whatsapp.51cbd71440eaa90946070b8848c12129.svg",
+    "static/media/trash.svg": "./static/media/trash.fd69ec7fd568420905253895c02ea910.svg",
+    "static/media/logout.svg": "./static/media/logout.873247f6b83eefd9330a0d89c7a62424.svg",
+    "static/media/gift.svg": "./static/media/gift.17ed12f1d51aa0b1711fc00e1c71a828.svg",
+    "static/media/ic-notfound.svg": "./static/media/ic-notfound.2c252d16f18118d22833d1b995ba0234.svg",
+    "static/media/truck.svg": "./static/media/truck.ea6acb9f2b133040e9f295fbb9f2a3ab.svg",
+    "static/media/save.svg": "./static/media/save.8bda7de03ef11d27358a941a2b907999.svg",
+    "static/media/ic-close-input.svg": "./static/media/ic-close-input.f01e03cf609912dcdf78b1a91e354837.svg",
+    "static/media/favorites.svg": "./static/media/favorites.38b3ed7ac5ebdf4b5b3dd05aa27f4106.svg",
+    "static/media/user.svg": "./static/media/user.4704ef22068b3605cbc1cbfd573954a3.svg",
+    "static/media/cart.svg": "./static/media/cart.36351405bb13de945ab1f9699d66d925.svg",
+    "index.html": "./index.html",
+    "static/media/star.svg": "./static/media/star.3c809cd3e36dc4c950d3fcc8aff36982.svg",
+    "static/media/ic-search.svg": "./static/media/ic-search.296528dfccff6373f75e8f75d02e833a.svg",
+    "static/media/telegram.svg": "./static/media/telegram.95a5ca8a1ae0a13c18da2bca3f249bf5.svg",
+    "main.6f0f6f18.css.map": "./static/css/main.6f0f6f18.css.map",
+    "main.1650544c.js.map": "./static/js/main.1650544c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6f0f6f18.css",
+    "static/js/main.1650544c.js"
+  ]
+}
