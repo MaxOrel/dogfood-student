@@ -1,16 +1,32 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { Selector, createSelector, createSlice } from '@reduxjs/toolkit';
 import { calcDiscountPrice } from '../../utils/products';
-const initialState = {
+import { RootState } from '../types';
+import { TProductInCart } from '../../types';
+
+type TCartState = {
+    totalCountProducts: number,
+    data: TProductInCart[],
+}
+
+
+const initialState: TCartState = {
     data: [],
     totalCountProducts: 0
 }
 
+interface ICartInfo {
+    amount: number,
+    amountWithDiscount: number,
+    totalDiscount: number,
+    totalCount: number
+}
+
 export const sliceName = 'cart';
 
-const selectCartData = (state) => state.cart.data;
+const selectCartData = (state: RootState) => state.cart.data;
 
-export const cartInfoSelector = createSelector(selectCartData, (cart) => {
-    return cart.reduce((total, item) => {
+export const cartInfoSelector: Selector<RootState, ICartInfo> = createSelector(selectCartData, (cart) => {
+    return cart.reduce((total, item: any) => {
         const priceDiscount = calcDiscountPrice(item.price, item.discount);
         total['amount'] += item.price * item.quantity;
         total['amountWithDiscount'] += (priceDiscount * item.quantity);
@@ -50,10 +66,12 @@ const cartSlice = createSlice({
         },
         changeCartQuantity: (state, action) => {
             const itemInCart = state.data.find(item => item._id === action.payload._id); //undefined or product
-            if (itemInCart.quantity < action.payload.quantity) {
-                state.totalCountProducts += action.payload.quantity - itemInCart.quantity;
-            } else {
-                state.totalCountProducts -= itemInCart.quantity - action.payload.quantity;
+            if (itemInCart) {
+                if (itemInCart.quantity < action.payload.quantity) {
+                    state.totalCountProducts += action.payload.quantity - itemInCart.quantity;
+                } else {
+                    state.totalCountProducts -= itemInCart.quantity - action.payload.quantity;
+                }
             }
 
             if (itemInCart && action.payload.quantity > 0) {
@@ -73,11 +91,13 @@ const cartSlice = createSlice({
         },
         decrementQuantity: (state, action) => {
             const itemInCart = state.data.find(item => item._id === action.payload._id); //undefined or product
-            if (itemInCart.quantity === 1) {
-                itemInCart.quantity = 1;
-            } else {
-                itemInCart.quantity--;
-                state.totalCountProducts--;
+            if (itemInCart) {
+                if (itemInCart.quantity === 1) {
+                    itemInCart.quantity = 1;
+                } else {
+                    itemInCart.quantity--;
+                    state.totalCountProducts--;
+                }
             }
         }
     }

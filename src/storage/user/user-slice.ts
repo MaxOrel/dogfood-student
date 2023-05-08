@@ -6,7 +6,7 @@ import { TUserResponseDto, UserAuthBodyDto, UserBodyDto, UserRegisterBodyDto } f
 
 type TUserState = {
     isAuthChecked: boolean,
-    data: any,
+    data: TUserResponseDto | null,
     registerUserRequest: boolean,
     registerUserError: SerializedError | null | unknown,
     loginUserRequest: boolean,

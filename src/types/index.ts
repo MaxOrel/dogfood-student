@@ -32,3 +32,13 @@ export type TProduct = {
     wight: string,
     description: string
 }
+
+export type TProductInCart = {
+    discount: number,
+    pictures: string,
+    _id: string,
+    name: string,
+    price: number,
+    wight: string,
+    quantity: number;
+}

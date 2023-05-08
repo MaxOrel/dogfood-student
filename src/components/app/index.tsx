@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SyntheticEvent, MouseEvent } from "react";
 import { CardList } from "../card-list";
 import { Footer } from "../footer";
 import { Header } from "../header";
@@ -9,7 +9,7 @@ import { dataCard } from "../../data";
 import s from "./styles.module.css";
 import { Button } from '../button';
 // import styled from 'styled-components';
-import api from '../../utils/api';
+import api, { UserAuthBodyDto, UserBodyDto, UserRegisterBodyDto } from '../../utils/api';
 import { useDebounce } from '../../hooks/useDebounce';
 import { isLiked } from '../../utils/products';
 import { CatalogPage } from '../../pages/catalog-page';
@@ -21,7 +21,6 @@ import { UserContext } from '../../contexts/current-user-context';
 import { CardsContext } from '../../contexts/card-context';
 import { ThemeContext, themes } from '../../contexts/theme-context';
 import { FavoritesPage } from '../../pages/favorite-page';
-import { TABS_ID } from '../../utils/constants';
 import Modal from '../modal';
 import Register from '../register';
 import Login from '../login';
@@ -29,22 +28,21 @@ import ResetPassword from '../reset-password';
 import DnDPage from '../../pages/dnd-page';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChangeLikeProduct, fetchProducts, sortedProducts } from '../../storage/products/products-slice';
-import { checkTokenUser, fetchUser, loginUser, registerUser } from '../../storage/user/user-slice';
+import { checkTokenUser, loginUser, registerUser } from '../../storage/user/user-slice';
 import { MainPage } from '../../pages/main-page';
 import { ProtectedRoute } from '../protected-route';
 import { getLocalData } from '../../utils/localStorage';
 import CartPage from '../../pages/cart-page';
+import { useAppDispath, useAppSelector } from '../../storage/hook';
 
 export function App() {
-    const currentUser = useSelector(state => state.user.data)
+    const currentUser = useAppSelector(state => state.user.data)
 
     const [searchQuery, setSearchQuery] = useState("");
 
     const [theme, setTheme] = useState(themes.light);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispath();
 
-
-    const [contacts, setContacts] = useState([])
     const debounceSearchQuery = useDebounce(searchQuery, 300);
 
     const navigate = useNavigate();
@@ -73,16 +71,16 @@ export function App() {
             })
     }
 
-    function handleFormSubmit(e) {
+    function handleFormSubmit(e: SubmitEvent) {
         e.preventDefault();
         handleRequest();
     }
 
-    function handleInputChange(dataInput) {
+    function handleInputChange(dataInput: string) {
         setSearchQuery(dataInput);
     }
 
-    function handleUpdateUser(dataUserUpdate) {
+    function handleUpdateUser(dataUserUpdate: UserBodyDto) {
         api.setUserInfo(dataUserUpdate)
             .then((updateUserFromServer) => {
                 // setCurrentUser(updateUserFromServer)
@@ -110,43 +108,39 @@ export function App() {
         theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark);
     }
 
-    function addContact(dataInfo) {
-        setContacts([...contacts, dataInfo])
-    }
-
-    const cbSubmitFormLoginRegister = (dataForm) => {
+    const cbSubmitFormLoginRegister = (dataForm: UserRegisterBodyDto) => {
         console.log('cbSubmitFormLoginRegister', dataForm);
         dispatch(registerUser(dataForm))
     }
-    const cbSubmitFormLogin = (dataForm) => {
+    const cbSubmitFormLogin = (dataForm: UserAuthBodyDto) => {
         console.log('cbSubmitFormLogin', dataForm);
         dispatch(loginUser(dataForm))
     }
-    const cbSubmitFormResetPassword = (dataForm) => {
+    const cbSubmitFormResetPassword = (dataForm: any) => {
         console.log('cbSubmitFormResetPassword', dataForm);
     }
 
-    const handleClickButtonLogin = (e) => {
+    const handleClickButtonLogin = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/login', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
     }
-    const handleClickButtonReset = (e) => {
+    const handleClickButtonReset = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/reset-password', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
     }
-    const handleClickButtonRegister = (e) => {
+    const handleClickButtonRegister = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/register', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
     }
-    const handleClickButtonResetNotModal = (e) => {
+    const handleClickButtonResetNotModal = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/reset-password')
     }
-    const handleClickButtonRegisterNotModal = (e) => {
+    const handleClickButtonRegisterNotModal = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/register')
     }
-    const handleClickButtonLoginNotModal = (e) => {
+    const handleClickButtonLoginNotModal = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/login')
     }

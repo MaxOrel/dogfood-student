@@ -1,8 +1,9 @@
+import { useAppSelector } from '../../storage/hook';
 import s from "./styles.module.css";
 import { useSelector } from 'react-redux';
 
 export function CartInfo() {
-  const { totalCountProducts } = useSelector(state => state.cart);
+  const { totalCountProducts } = useAppSelector(state => state.cart);
 
   return (
     <div className={s.cartTitle}>

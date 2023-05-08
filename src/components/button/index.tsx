@@ -1,9 +1,24 @@
 import cn from 'classnames';
 
 import s from './styles.module.css';
-export const Button = ({ type, children, href, extraClass, htmlType = 'button', action }) => {
+import { MouseEvent, ReactNode } from 'react';
+export enum ButtonVariant {
+    "primary",
+    "secondary",
+    "border",
+}
 
-    function handleClick(e) {
+interface IButtonProps {
+    variant: ButtonVariant,
+    children: ReactNode,
+    href?: string,
+    extraClass?: string,
+    htmlType?: "submit" | "reset" | "button",
+    action?: () => void
+}
+export const Button = ({ variant, children, href, extraClass = "", htmlType = "button", action }: IButtonProps) => {
+
+    function handleClick(e: MouseEvent<HTMLAnchorElement>) {
         href && e.preventDefault();
         action && action();
     }
@@ -15,7 +30,7 @@ export const Button = ({ type, children, href, extraClass, htmlType = 'button', 
                 className={cn(
                     s.button,
                     {
-                        [s[`button_type_${type}`]]: !!s[`button_type_${type}`],
+                        [s[`button_type_${variant}`]]: !!s[`button_type_${variant}`],
                         [extraClass]: !!extraClass
                     }
                 )}
@@ -28,7 +43,7 @@ export const Button = ({ type, children, href, extraClass, htmlType = 'button', 
                 className={cn(
                     s.button,
                     {
-                        [s[`button_type_${type}`]]: !!s[`button_type_${type}`],
+                        [s[`button_type_${variant}`]]: !!s[`button_type_${variant}`],
                         [extraClass]: !!extraClass
                     }
                 )}

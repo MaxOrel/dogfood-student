@@ -1,6 +1,16 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-const initialState = {
-    data: {},
+import { SerializedError, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAppAsyncThunk } from '../hook';
+import { ReviewBodyDto, TProductResponseDto } from '../../utils/api';
+
+type TProductState = {
+    data: TProductResponseDto | null,
+    loading: boolean,
+    error: SerializedError | null | unknown,
+}
+
+
+const initialState: TProductState = {
+    data: null,
     loading: true,
     error: null,
 }
@@ -8,7 +18,7 @@ const initialState = {
 export const sliceName = 'single-product';
 
 
-export const fetchSingleProduct = createAsyncThunk(
+export const fetchSingleProduct = createAppAsyncThunk<TProductResponseDto, string>(
     `${sliceName}/fetchSingleProduct`,
     async function (productId, { fulfillWithValue, rejectWithValue, extra: api }) {
         try {
@@ -21,7 +31,7 @@ export const fetchSingleProduct = createAsyncThunk(
     }
 )
 
-export const fetchCreateReview = createAsyncThunk(
+export const fetchCreateReview = createAppAsyncThunk<TProductResponseDto, { productId: string, data: ReviewBodyDto }>(
     `${sliceName}/fetchCreateReview`,
     async function ({ productId, data: body }, { fulfillWithValue, rejectWithValue, extra: api }) {
         try {

@@ -1,11 +1,16 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { Spinner } from '../spinner';
 import { useSelector } from 'react-redux';
-
-export function ProtectedRoute({ onlyUnAuth, children }) {
+import { ReactNode } from 'react';
+import { useAppSelector } from '../../storage/hook';
+interface IProtectedRouteProps {
+  onlyUnAuth?: boolean;
+  children: ReactNode;
+}
+export function ProtectedRoute({ onlyUnAuth, children }: IProtectedRouteProps) {
   const location = useLocation()
-  const user = useSelector(state => state.user.data);
-  const isAuthChecked = useSelector(state => state.user.isAuthChecked);
+  const user = useAppSelector(state => state.user.data);
+  const isAuthChecked = useAppSelector(state => state.user.isAuthChecked);
 
   // debugger;
 
@@ -24,5 +29,10 @@ export function ProtectedRoute({ onlyUnAuth, children }) {
     )
   }
 
-  return children
+  return (
+    <>
+      {children}
+    </>
+  )
+ 
 }

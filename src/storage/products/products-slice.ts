@@ -1,8 +1,22 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { SerializedError, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isLiked } from '../../utils/products';
 import { TABS_ID } from '../../utils/constants';
+import { createAppAsyncThunk } from '../hook';
+import { TProductResponseDto, TProductsResponseDto, TUserResponseDto } from '../../utils/api';
+import { TProduct } from '../../types';
 
-const initialState = {
+
+type TProductsState = {
+    data: TProductResponseDto[],
+    currentSort: string,
+    favoriteProducts: TProductResponseDto[],
+    total: number,
+    loading: boolean,
+    error: SerializedError | null | unknown,
+}
+
+
+const initialState: TProductsState = {
     data: [],
     currentSort: "",
     favoriteProducts: [],
@@ -14,7 +28,7 @@ const initialState = {
 export const sliceName = 'products';
 
 
-export const fetchProducts = createAsyncThunk(
+export const fetchProducts = createAppAsyncThunk<TProductsResponseDto & { currentUser: TUserResponseDto | null }, void>(
     `${sliceName}/fetchProducts`,
     async function (_, { fulfillWithValue, rejectWithValue, getState, extra: api }) {
         try {
@@ -28,12 +42,12 @@ export const fetchProducts = createAsyncThunk(
     }
 )
 
-export const fetchChangeLikeProduct = createAsyncThunk(
+export const fetchChangeLikeProduct = createAppAsyncThunk<{ product: TProductResponseDto, liked: boolean }, { likes: string[], _id: string }>(
     `${sliceName}/fetchChangeLikeProduct`,
     async function (product, { fulfillWithValue, rejectWithValue, getState, extra: api }) {
         try {
             const { user } = await getState();
-            const liked = isLiked(product.likes, user.data._id);
+            const liked = user.data ? isLiked(product.likes, user.data._id) : false;
             const data = await api.changeLikeProductStatus(product._id, liked);
 
             return fulfillWithValue({ product: data, liked }); // action.payload = data = {products: [], total: 0, currentUser: {}}
@@ -80,7 +94,7 @@ const productSlice = createSlice({
                 const { products, total, currentUser } = action.payload;
                 state.data = products;
                 state.total = total;
-                state.favoriteProducts = products.filter(item => isLiked(item.likes, currentUser._id))
+                state.favoriteProducts = products.filter(item => isLiked(item.likes, currentUser?._id))
                 state.loading = false;
             })
             .addCase(fetchProducts.rejected, (state, action) => {  // { type: products/fetchProducts/pending, payload: {...}}

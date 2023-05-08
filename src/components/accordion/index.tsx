@@ -1,14 +1,17 @@
 import s from './styles.module.css';
 
 import cn from 'classnames';
-import { useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import { useElementSize } from '../../hooks';
 
-
-function Accordion({ title, children }) {
+interface IAccordionProps {
+    title: string,
+    children: ReactNode,
+   
+  }
+function Accordion({ title, children }: IAccordionProps) {
     const [selected, setSelected] = useState(false);
-    const [contentRef, { width, height }] = useElementSize()
-
+    const [contentRef, { width, height }] = useElementSize<HTMLParagraphElement>()
     function toggleAccordionState() {
         setSelected(!selected);
     }

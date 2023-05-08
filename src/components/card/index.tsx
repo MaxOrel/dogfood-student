@@ -4,13 +4,15 @@ import "./styles.css";
 import { ReactComponent as LikeIcon } from "../../images/save.svg";
 import { calcDiscountPrice, isLiked } from '../../utils/products';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { MouseEvent, useContext } from 'react';
 import { CardsContext } from '../../contexts/card-context';
 import ContentLoader from 'react-content-loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChangeLikeProduct } from '../../storage/products/products-slice';
 import { ProductPrice } from '../product-price';
 import { addProductCart } from '../../storage/cart/cart-slice';
+import { TProduct } from '../../types';
+import { useAppDispath, useAppSelector } from '../../storage/hook';
 
 export function Card({
   name,
@@ -22,13 +24,13 @@ export function Card({
   tags,
   likes,
   _id,
-}) {
+}: TProduct) {
   const addDataProduct = { _id, name, pictures, discount, price, wight }
-  const dispatch = useDispatch();
+  const dispatch = useAppDispath();
   const discount_price = calcDiscountPrice(price, discount)
-  const currentUser = useSelector(state => state.user.data);
+  const currentUser = useAppSelector(state => state.user.data);
 
-  const isLoading = useSelector(state => state.products.loading)
+  const isLoading = useAppSelector(state => state.products.loading)
   const like = isLiked(likes, currentUser?._id)
 
 
@@ -36,7 +38,7 @@ export function Card({
     return dispatch(fetchChangeLikeProduct({ likes, _id }))
   }
 
-  function handleAddCartClick(e) {
+  function handleAddCartClick(e: MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
     dispatch(addProductCart(addDataProduct))
   }

@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { calcDiscountPrice, checkProductInCart, isLiked } from '../../utils/products';
-import { Button } from '../button';
+import { Button, ButtonVariant } from '../button';
 import s from './styles.module.css';
 import { ReactComponent as LikeIcon } from "../../images/save.svg";
 import truck from "../../images/truck.svg";
@@ -63,7 +63,7 @@ function Product({ onProductLike }) {
                             handleDecrement={() => { dispatch(decrementQuantity(addDataProduct)) }}
                             handleCountChange={(newQuantity) => { dispatch(changeCartQuantity({ ...addDataProduct, quantity: newQuantity })) }}
                         />
-                        <Button href="#" type="primary" action={handleCartClick} >{!productInCartInfo.quantity || productInCartInfo.quantity === 0 ? "В корзину" : "Добавлено"}</Button>
+                        <Button href="#" variant={ButtonVariant.primary} action={handleCartClick} >{!productInCartInfo.quantity || productInCartInfo.quantity === 0 ? "В корзину" : "Добавлено"}</Button>
                     </div>
                     <button className={cn(s.favorite, { [s.favoriteActive]: like })} onClick={handleLikeClick}>
                         <LikeIcon />

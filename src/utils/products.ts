@@ -9,7 +9,7 @@ export function formattedDate(date: Date) {
     return data.replace('.', "");
 }
 
-export const isLiked = (likes: string[], userId: string) => likes?.some(id => id === userId)
+export const isLiked = (likes: string[], userId: string | undefined) => likes?.some(id => id === userId)
 export const calcDiscountPrice = (price: number, discount: number) => Math.round(price - (price * discount) / 100);
 
 

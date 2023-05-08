@@ -1,11 +1,17 @@
 import { useCallback, useState } from 'react'
-import { useEventListener, useIsomorphicLayoutEffect } from './index.js'
+import { useEventListener, useIsomorphicLayoutEffect } from './index'
 
+interface Size {
+    width: number
+    height: number
+}
 
-function useElementSize() {
-
-    const [ref, setRef] = useState(null)
-    const [size, setSize] = useState({
+function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
+    (node: T | null) => void,
+    Size,
+] {
+    const [ref, setRef] = useState<T | null>()
+    const [size, setSize] = useState<Size>({
         width: 0,
         height: 0,
     })

@@ -2,9 +2,10 @@ import cn from 'classnames';
 import { cartInfoSelector } from '../../storage/cart/cart-slice';
 import s from "./styles.module.css";
 import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../storage/hook';
 
 export function CartAmount() {
-  const state = useSelector(state => state);
+  const state = useAppSelector(state => state);
   const { amount, amountWithDiscount, totalDiscount, totalCount } = cartInfoSelector(state);
   console.log(amount, amountWithDiscount, totalDiscount, totalCount);
   return (
