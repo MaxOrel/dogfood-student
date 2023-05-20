@@ -1,7 +1,13 @@
 import cn from 'classnames';
 import s from "./styles.module.css";
 import { calcDiscountPrice } from '../../utils/products';
-export function ProductPrice({ discount, price, type, align = "left" }) {
+interface IProductPriceProps {
+  discount: number,
+  price: number,
+  type: string,
+  align?: string
+}
+export function ProductPrice({ discount, price, type, align = "left" }: IProductPriceProps) {
   const discount_price = calcDiscountPrice(price, discount);
 
   return (

@@ -3,8 +3,11 @@ export const TABS_ID = {
     LOW: "low",
     DISCOUNT: "discount",
 }
-
-export const TABS = [
+export type Tab = {
+    id: string,
+    title: string,
+}
+export const TABS: Tab[] = [
     {
         id: TABS_ID.CHEAP,
         title: "Сначала дешевые",

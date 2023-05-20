@@ -1,13 +1,31 @@
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Form from '../form';
 import FormInput from '../form-input';
 import FormButton from '../form-button';
 import s from './styles.module.css';
 import cn from 'classnames';
+import { MouseEvent } from 'react';
+import { useAppDispath } from '../../storage/hook';
+import { loginUser } from '../../storage/user/user-slice';
 
-function Login({ onSubmit, onNavigateRegister, onNavigateReset }) {
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" })
+type FormValues = {
+    email: string;
+    password: string;
+};
 
+interface IFormLoginProps {
+    onNavigateRegister: (e: MouseEvent<HTMLButtonElement>) => void;
+    onNavigateReset: (e: MouseEvent<HTMLParagraphElement>) => void;
+}
+
+function Login({ onNavigateRegister, onNavigateReset }: IFormLoginProps) {
+    const dispatch = useAppDispath();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ mode: "onBlur" })
+
+    const onSubmit: SubmitHandler<FormValues> = (dataForm) => {
+        console.log('cbSubmitFormLogin', dataForm);
+        dispatch(loginUser(dataForm))
+    }
     const emailRegister = register('email', {
         required: {
             value: true,

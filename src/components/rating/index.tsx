@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 const MAX_COUNT_RATING = 5;
-
-function Rating({ isEditable = false, currentRating, setCurrentRating, error }) {
+interface IRatingProps {
+    isEditable?: boolean, currentRating: number, setCurrentRating?: (data: number) => void, error?: any
+}
+function Rating({ isEditable = false, currentRating, setCurrentRating, error }: IRatingProps) {
     const [ratingArray, setRatingArray] = useState(new Array(MAX_COUNT_RATING).fill(<></>))
 
-    const constructRating = (filledRating) => {
-
+    const constructRating = (filledRating: number) => {
         const updateArray = ratingArray.map((ratingElement, index) => {
             return (
                 <StarIcon
@@ -29,11 +30,11 @@ function Rating({ isEditable = false, currentRating, setCurrentRating, error }) 
 
     }
 
-    function changeDisplay(rating) {
+    function changeDisplay(rating: number) {
         constructRating(rating)
     }
 
-    function changeRating(rating) {
+    function changeRating(rating: number) {
         if (!isEditable || !setCurrentRating) return;
         setCurrentRating(rating)
     }

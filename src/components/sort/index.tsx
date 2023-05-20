@@ -1,14 +1,18 @@
 import cn from 'classnames';
 import s from "./styles.module.css";
-import { useContext } from 'react';
+import { SyntheticEvent, useContext } from 'react';
 import { CardsContext } from '../../contexts/card-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { sortedProducts } from '../../storage/products/products-slice';
-
-export function Sort({ tabs = [] }) {
+import { useAppSelector } from '../../storage/hook';
+import { Tab } from '../../utils/constants';
+interface ISortProps {
+  tabs: Tab[];
+}
+export function Sort({ tabs = [] }: ISortProps) {
   const dispatch = useDispatch();
-  const currentSort = useSelector(state => state.products.currentSort)
-  function handleClickTab(e, tab) {
+  const currentSort = useAppSelector(state => state.products.currentSort)
+  function handleClickTab(e: SyntheticEvent<HTMLAnchorElement>, tab: Tab) {
     e.preventDefault();
     dispatch(sortedProducts(tab.id))
   }

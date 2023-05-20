@@ -17,26 +17,31 @@ import { addProductCart, changeCartQuantity, decrementQuantity, incrementQuantit
 import { ProductPrice } from '../product-price';
 import ButtonCount from '../button-count/button-count';
 import { useAppSelector } from '../../storage/hook';
+import { TProduct } from '../../types';
 
+interface IProduct {
+    onProductLike: (data: { likes: string[], _id: string }) => void;
+}
 
-function Product({ onProductLike }) {
-    const { _id, name, pictures, description, wight, discount, price, likes = [], reviews } = useSelector(state => state.singleProduct.data);
+function Product({ onProductLike }: IProduct) {
+    const { _id, name, pictures, description, wight, discount, price, likes = [], reviews } = useAppSelector(state => state.singleProduct.data) as TProduct;
     const addDataProduct = { _id, name, pictures, discount, price, wight }
     const cartProducts = useAppSelector(state => state.cart.data)
-    const currentUser = useSelector(state => state.user.data)
-    const [currentRating, setCurrentRating] = useState(5);
+    const currentUser = useAppSelector(state => state.user.data)
+    const [currentRating, setCurrentRating] = useState<number>(5);
 
 
-    const productInCartInfo = checkProductInCart(cartProducts, _id);
+    const productInCartInfo = checkProductInCart(cartProducts, _id as string);
     const dispatch = useDispatch();
 
-    const discount_price = calcDiscountPrice(price, discount);
     const like = isLiked(likes, currentUser?._id);
     function handleLikeClick() {
-        onProductLike({ likes, _id })
+        if (_id) {
+            onProductLike({ likes, _id })
+        }
     }
 
-    function handleCartClick(e) {
+    function handleCartClick() {
         dispatch(addProductCart(addDataProduct))
     }
 
@@ -126,7 +131,7 @@ function Product({ onProductLike }) {
                 </div>
             </div>
 
-            {reviews.length !== 0 && <div className={s.reviews}> {reviews.map(reviewData => <Review {...reviewData} />)}</div>}
+            {reviews.length !== 0 && <div className={s.reviews}> {reviews.map(reviewData => <Review key={reviewData._id} {...reviewData} />)}</div>}
             <FormReview title={`Отзыв о товаре ${name}`} productId={_id} />
         </>
     );

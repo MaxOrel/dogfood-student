@@ -1,14 +1,12 @@
-import React, { useRef, useEffect, useState, ReactNode } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { register } from 'swiper/element/bundle';
 import "./styles.css";
 
 register();
-interface TCarouselProps {
-  items: any, component: ReactNode, perView: number
-}
-function Carousel({ items, component: Component, perView }: TCarouselProps) {
+
+function Carousel({ items, component: Component, perView }) {
   const [data, setData] = useState([])
-  const swiperElRef = useRef<any>(null);
+  const swiperElRef = useRef(null);
   console.log();
   useEffect(() => {
     // listen for Swiper events using addEventListener
@@ -58,7 +56,8 @@ function Carousel({ items, component: Component, perView }: TCarouselProps) {
         //     <Component key={index} {...dataItem} />
         //   ))
         // })(),
-        renderExternal: function (dataVirtual: any) {
+        renderExternal: function (dataVirtual) {
+          console.log(dataVirtual);
           setData(dataVirtual)
         },
         addSlidesAfter: 0,

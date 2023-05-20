@@ -31,7 +31,7 @@ export const fetchSingleProduct = createAppAsyncThunk<TProductResponseDto, strin
     }
 )
 
-export const fetchCreateReview = createAppAsyncThunk<TProductResponseDto, { productId: string, data: ReviewBodyDto }>(
+export const fetchCreateReview = createAppAsyncThunk<TProductResponseDto, { productId: string, data: any }>(
     `${sliceName}/fetchCreateReview`,
     async function ({ productId, data: body }, { fulfillWithValue, rejectWithValue, extra: api }) {
         try {

@@ -1,11 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Form from '../form';
 import FormInput from '../form-input';
 import FormButton from '../form-button';
+import { useAppDispath } from '../../storage/hook';
+type FormValues = {
+    email: string;
+    group: string;
+    password: string;
+};
 
-function ResetPassword({ onSubmit }) {
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" })
+function ResetPassword() {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ mode: "onBlur" })
+    const dispatch = useAppDispath();
+
+    const onSubmit: SubmitHandler<FormValues> = (dataForm) => {
+        console.log('cbSubmitFormResetPassword', dataForm);
+    }
 
     const emailRegister = register('email', {
         required: {

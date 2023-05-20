@@ -2,8 +2,12 @@ import "./styles.css";
 
 import { ReactComponent as CloseIcon } from "./assets/ic-close-input.svg";
 import { ReactComponent as SeachIcon } from "./assets/ic-search.svg";
-
-export function Search({ handleFormSubmit, handleInputChange }) {
+import { ChangeEvent, FormEvent } from 'react';
+interface ISearchProps {
+  handleFormSubmit: (e: FormEvent<HTMLFormElement>) => void,
+  handleInputChange: (value: string) => void
+}
+export function Search({ handleFormSubmit, handleInputChange }: ISearchProps) {
   return (
     <form className="search" onSubmit={handleFormSubmit}>
       <input

@@ -41,4 +41,5 @@ export type TProductInCart = {
     price: number,
     wight: string,
     quantity: number;
+    isGift?: boolean;
 }

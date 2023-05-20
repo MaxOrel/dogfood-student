@@ -2,7 +2,15 @@ import { ReactComponent as NotFoundIcon } from './img/ic-notfound.svg';
 
 import { Button, ButtonVariant } from '../button'
 import s from "./styles.module.css";
-export function NotFound({ children, title, buttonText = "На главную", buttonAction }) {
+import { ReactNode } from 'react';
+
+interface INotFoundProps {
+  children?: ReactNode,
+  title: string,
+  buttonText?: string,
+  buttonAction?: () => void
+}
+export function NotFound({ children, title, buttonText = "На главную", buttonAction }: INotFoundProps) {
   return (
     <div className={s.notfound}>
       <NotFoundIcon className={s.image} aria-hidden="true" />

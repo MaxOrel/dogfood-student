@@ -7,21 +7,17 @@ import { Provider } from 'react-redux';
 import store, { persistor } from './storage/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById("root") as HTMLDivElement;
 const root = createRoot(rootElement);
-console.log(process.env);
+
+const Router = process.env.REACT_APP_GH_PAGES === 'true' ? HashRouter : BrowserRouter;
+
 root.render(
     <Provider store={store}>
         <PersistGate persistor={persistor}>
-            {process.env.REACT_APP_GH_PAGES !== 'true'
-                ? <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-                : <HashRouter>
-                    <App />
-                </HashRouter>
-            }
-
+            <Router>
+                <App />
+            </Router>
         </PersistGate>
     </Provider>
 );

@@ -2,7 +2,7 @@ import { TProductInCart } from '../../types';
 import { CartItem } from '../cart-item';
 import s from "./styles.module.css";
 interface ICartListProps {
-  productsCart: (TProductInCart & { isGift: boolean; })[];
+  productsCart: (TProductInCart)[];
 }
 export function CartList({ productsCart }: ICartListProps) {
   return (

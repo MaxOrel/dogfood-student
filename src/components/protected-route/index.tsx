@@ -12,8 +12,6 @@ export function ProtectedRoute({ onlyUnAuth, children }: IProtectedRouteProps) {
   const user = useAppSelector(state => state.user.data);
   const isAuthChecked = useAppSelector(state => state.user.isAuthChecked);
 
-  // debugger;
-
   if (!isAuthChecked) return <Spinner />
 
   if (onlyUnAuth && user) {
@@ -34,5 +32,5 @@ export function ProtectedRoute({ onlyUnAuth, children }: IProtectedRouteProps) {
       {children}
     </>
   )
- 
+
 }

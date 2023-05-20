@@ -1,4 +1,4 @@
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import Form from '../form';
 import FormInput from '../form-input';
 import FormButton from '../form-button';
@@ -7,13 +7,25 @@ import cn from 'classnames';
 import Rating from '../rating';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchCreateReview } from '../../storage/single-product/single-product-slice'
-function FormReview({ title = 'Отзыв о товаре', productId }) {
-    const dispatch = useDispatch()
-    const { register, control, handleSubmit, formState: { errors }, reset } = useForm({ mode: "onBlur" })
-    // const [rating, setRating] = useState(5);
-    const handleSubmitFormReview = (data) => {
-        console.log('handleSubmitFormReview', data);
+import { fetchCreateReview } from '../../storage/single-product/single-product-slice';
+import { useAppDispath } from '../../storage/hook';
+import { ReviewBodyDto } from '../../utils/api';
+
+interface IFormReviewProps {
+    title: string,
+    productId: string
+}
+
+type FormValues = {
+    text: string;
+    rating: number;
+};
+
+
+function FormReview({ title = 'Отзыв о товаре', productId }: IFormReviewProps) {
+    const dispatch = useAppDispath()
+    const { register, control, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({ mode: "onBlur" })
+    const handleSubmitFormReview: SubmitHandler<FormValues> = (data) => {
         dispatch(fetchCreateReview({ productId, data }))
         reset();
     }
@@ -49,8 +61,6 @@ function FormReview({ title = 'Отзыв о товаре', productId }) {
                     placeholder="Напишите текст отзыва"
                 />
                 {errors?.text && <p className="errorMessage">{errors?.text?.message}</p>}
-
-
                 <FormButton type="submit" color="pramary">Отправить отзыв</FormButton>
             </Form>
         </>

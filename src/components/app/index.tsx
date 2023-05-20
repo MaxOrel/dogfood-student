@@ -1,24 +1,15 @@
-import { useState, useEffect, SyntheticEvent, MouseEvent } from "react";
-import { CardList } from "../card-list";
+import { useState, useEffect, SyntheticEvent, MouseEvent, FormEvent } from "react";
 import { Footer } from "../footer";
 import { Header } from "../header";
-import { Sort } from "../sort";
 import { Logo } from "../logo";
 import { Search } from "../search";
-import { dataCard } from "../../data";
-import s from "./styles.module.css";
-import { Button } from '../button';
-// import styled from 'styled-components';
-import api, { UserAuthBodyDto, UserBodyDto, UserRegisterBodyDto } from '../../utils/api';
+import api, { UserBodyDto } from '../../utils/api';
 import { useDebounce } from '../../hooks/useDebounce';
-import { isLiked } from '../../utils/products';
 import { CatalogPage } from '../../pages/catalog-page';
 import { ProductPage } from '../../pages/product-page';
 import FaqPage from '../../pages/faq-page';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { NotFoundPage } from '../../pages/not-found-page';
-import { UserContext } from '../../contexts/current-user-context';
-import { CardsContext } from '../../contexts/card-context';
 import { ThemeContext, themes } from '../../contexts/theme-context';
 import { FavoritesPage } from '../../pages/favorite-page';
 import Modal from '../modal';
@@ -26,9 +17,8 @@ import Register from '../register';
 import Login from '../login';
 import ResetPassword from '../reset-password';
 import DnDPage from '../../pages/dnd-page';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchChangeLikeProduct, fetchProducts, sortedProducts } from '../../storage/products/products-slice';
-import { checkTokenUser, loginUser, registerUser } from '../../storage/user/user-slice';
+import { fetchProducts } from '../../storage/products/products-slice';
+import { checkTokenUser } from '../../storage/user/user-slice';
 import { MainPage } from '../../pages/main-page';
 import { ProtectedRoute } from '../protected-route';
 import { getLocalData } from '../../utils/localStorage';
@@ -71,7 +61,7 @@ export function App() {
             })
     }
 
-    function handleFormSubmit(e: SubmitEvent) {
+    function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         handleRequest();
     }
@@ -108,23 +98,12 @@ export function App() {
         theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark);
     }
 
-    const cbSubmitFormLoginRegister = (dataForm: UserRegisterBodyDto) => {
-        console.log('cbSubmitFormLoginRegister', dataForm);
-        dispatch(registerUser(dataForm))
-    }
-    const cbSubmitFormLogin = (dataForm: UserAuthBodyDto) => {
-        console.log('cbSubmitFormLogin', dataForm);
-        dispatch(loginUser(dataForm))
-    }
-    const cbSubmitFormResetPassword = (dataForm: any) => {
-        console.log('cbSubmitFormResetPassword', dataForm);
-    }
 
     const handleClickButtonLogin = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/login', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
     }
-    const handleClickButtonReset = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClickButtonReset = (e: MouseEvent<HTMLParagraphElement>) => {
         e.preventDefault();
         navigate('/reset-password', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
     }
@@ -132,7 +111,7 @@ export function App() {
         e.preventDefault();
         navigate('/register', { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } })
     }
-    const handleClickButtonResetNotModal = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClickButtonResetNotModal = (e: MouseEvent<HTMLParagraphElement>) => {
         e.preventDefault();
         navigate('/reset-password')
     }
@@ -183,13 +162,13 @@ export function App() {
                     } />
                     <Route path='/dnd' element={<DnDPage />} />
                     <Route path='/login' element={
-                        <ProtectedRoute onlyUnAuth><Login onSubmit={cbSubmitFormLogin} onNavigateRegister={handleClickButtonRegisterNotModal} onNavigateReset={handleClickButtonResetNotModal} /></ProtectedRoute>
+                        <ProtectedRoute onlyUnAuth><Login onNavigateRegister={handleClickButtonRegisterNotModal} onNavigateReset={handleClickButtonResetNotModal} /></ProtectedRoute>
                     } />
                     <Route path='/register' element={
-                        <ProtectedRoute onlyUnAuth><Register onSubmit={cbSubmitFormLoginRegister} onNavigateLogin={handleClickButtonLoginNotModal} /></ProtectedRoute>
+                        <ProtectedRoute onlyUnAuth><Register onNavigateLogin={handleClickButtonLoginNotModal} /></ProtectedRoute>
                     } />
                     <Route path='/reset-password' element={
-                        <ProtectedRoute onlyUnAuth><ResetPassword onSubmit={cbSubmitFormResetPassword} /></ProtectedRoute>
+                        <ProtectedRoute onlyUnAuth><ResetPassword /></ProtectedRoute>
                     } />
                     <Route path='*' element={<NotFoundPage />} />
                 </Routes>
@@ -199,21 +178,21 @@ export function App() {
                 <Route path='/login' element={
                     <ProtectedRoute onlyUnAuth>
                         <Modal isOpen onClose={onCloseRoutingModal}>
-                            <Login onSubmit={cbSubmitFormLogin} onNavigateRegister={handleClickButtonRegister} onNavigateReset={handleClickButtonReset} />
+                            <Login onNavigateRegister={handleClickButtonRegister} onNavigateReset={handleClickButtonReset} />
                         </Modal>
                     </ProtectedRoute>
                 } />
                 <Route path='/register' element={
                     <ProtectedRoute onlyUnAuth>
                         <Modal isOpen onClose={onCloseRoutingModal}>
-                            <Register onSubmit={cbSubmitFormLoginRegister} onNavigateLogin={handleClickButtonLogin} />
+                            <Register onNavigateLogin={handleClickButtonLogin} />
                         </Modal>
                     </ProtectedRoute>
                 } />
                 <Route path='/reset-password' element={
                     <ProtectedRoute onlyUnAuth>
                         <Modal isOpen onClose={onCloseRoutingModal}>
-                            <ResetPassword onSubmit={cbSubmitFormResetPassword} />
+                            <ResetPassword />
                         </Modal>
                     </ProtectedRoute>
                 } />

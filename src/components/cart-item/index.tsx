@@ -9,7 +9,6 @@ import { ProductPrice } from '../product-price';
 import { changeCartQuantity, decrementQuantity, incrementQuantity, removeProductCart } from '../../storage/cart/cart-slice';
 import { TProductInCart } from '../../types';
 interface ICartItemProps extends TProductInCart {
-  isGift: boolean;
 }
 export function CartItem({
   name,

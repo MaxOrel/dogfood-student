@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
-import { TProduct } from '../types';
+import { TProductInCart } from '../types';
 dayjs.locale('ru');
 
 
@@ -13,7 +13,7 @@ export const isLiked = (likes: string[], userId: string | undefined) => likes?.s
 export const calcDiscountPrice = (price: number, discount: number) => Math.round(price - (price * discount) / 100);
 
 
-export const checkProductInCart = (cartProducts: (TProduct & { quantity: number })[], idProduct: string) => {
+export const checkProductInCart = (cartProducts: (TProductInCart & { quantity: number })[], idProduct: string) => {
     const productInCart = cartProducts.find(item => item._id === idProduct);
     if (productInCart && productInCart?.quantity) {
         return { quantity: productInCart.quantity, exist: true }

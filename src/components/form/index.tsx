@@ -1,7 +1,9 @@
 import { ReactNode, useState } from 'react';
 import s from "./styles.module.css";
 interface IFormProps {
-    handleFormSubmit: () => void, title: string, children: ReactNode
+    handleFormSubmit: (data: any) => void,
+    title?: string,
+    children: ReactNode
 }
 function Form({ handleFormSubmit, title, children }: IFormProps) {
     return (

@@ -1,12 +1,26 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { MouseEvent, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Form from '../form';
 import FormInput from '../form-input';
 import FormButton from '../form-button';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispath } from '../../storage/hook';
+import { registerUser } from '../../storage/user/user-slice';
 
-function Register({ onSubmit, onNavigateLogin }) {
-    const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" })
+type FormValues = {
+    email: string;
+    group: string;
+    password: string;
+};
+
+interface IFormRegisterProps {
+    onNavigateLogin: (e: MouseEvent<HTMLButtonElement>) => void;
+}
+
+
+function Register({ onNavigateLogin }: IFormRegisterProps) {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ mode: "onBlur" })
+    const dispatch = useAppDispath();
 
     const emailRegister = register('email', {
         required: {
@@ -29,6 +43,10 @@ function Register({ onSubmit, onNavigateLogin }) {
             message: "Пароль должен содержать минимум восемь символов, одну букву латинского алфавита и одну цифру"
         }
     })
+
+    const onSubmit: SubmitHandler<FormValues> = (dataForm) => {
+        dispatch(registerUser(dataForm))
+    }
 
     const groupRegister = register('group', {
         required: {

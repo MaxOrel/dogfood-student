@@ -13,25 +13,27 @@ import { UserContext } from '../../contexts/current-user-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLikeState, fetchSingleProduct } from '../../storage/single-product/single-product-slice';
 import { fetchChangeLikeProduct } from '../../storage/products/products-slice';
+import { useAppDispath, useAppSelector } from '../../storage/hook';
+import { TProduct } from '../../types';
 
 
 // const ID_PRODUCT = '622c77e877d63f6e70967d22';
 
 export const ProductPage = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispath()
     const { productID } = useParams();
 
-    const { data: product, loading: isLoading, error: errorState } = useSelector(state => state.singleProduct)
+    const { data: product, loading: isLoading, error: errorState } = useAppSelector(state => state.singleProduct)
 
-    function handleProductLike(product) {
-        dispatch(fetchChangeLikeProduct(product)).then(updateCard => {
+    function handleProductLike(product: { likes: string[], _id: string }) {
+        dispatch(fetchChangeLikeProduct({ likes: product.likes, _id: product._id })).then((updateCard: any) => {
             if (updateCard?.payload?.product) {
                 dispatch(changeLikeState(updateCard.payload.product))
             }
         });
     }
     useEffect(() => {
-        dispatch(fetchSingleProduct(productID))
+        if (productID) dispatch(fetchSingleProduct(productID));
     }, [dispatch, productID])
 
 
