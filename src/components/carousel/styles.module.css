@@ -1,0 +1,40 @@
+.title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 32px;
+    margin: 0;
+    flex: 1;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.buttonWrap {
+    display: flex;
+    gap: 12px;
+}
+
+.button {
+    width: 32px;
+    height: 32px;
+    background-color: #ECEFF1;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    padding: 0;
+}
+
+.button:disabled {
+    background-color: #CFD8DC;
+}
+
+.button:focus {
+    border-color: #CFD8DC;
+}

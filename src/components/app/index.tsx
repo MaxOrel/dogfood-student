@@ -24,6 +24,9 @@ import { ProtectedRoute } from '../protected-route';
 import { getLocalData } from '../../utils/localStorage';
 import CartPage from '../../pages/cart-page';
 import { useAppDispath, useAppSelector } from '../../storage/hook';
+import { ProfilePage } from '../../pages/profile-page';
+import { ProfileInfo } from '../profile-info';
+import ProfileForm from '../profile-form';
 
 export function App() {
     const currentUser = useAppSelector(state => state.user.data)
@@ -140,7 +143,7 @@ export function App() {
                     <Route path='*' element={<Logo href="/" />} />
                 </Routes>
             </Header>
-            <main className="content container" style={{ backgroundColor: theme.background }}>
+            <main className="main" style={{ backgroundColor: theme.background }}>
                 <Routes location={(backgroundLocation && { ...backgroundLocation, pathname: initialPath }) || location}>
                     <Route path='/' element={<MainPage />} />
                     <Route path='/catalog' element={
@@ -155,6 +158,14 @@ export function App() {
                             <ProductPage />
                         </ProtectedRoute>
                     } />
+                    <Route path='/profile' element={
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    } >
+                        <Route index element={<ProfileInfo />} />
+                        <Route path='edit' element={<ProfileForm />} />
+                    </Route>
                     <Route path='/cart' element={
                         <ProtectedRoute>
                             <CartPage />

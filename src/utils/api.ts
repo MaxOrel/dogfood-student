@@ -8,6 +8,7 @@ type ApiConfig = {
 export type UserBodyDto = {
     about: string;
     name: string;
+    avatar: string
 }
 
 export type UserAuthBodyDto = {

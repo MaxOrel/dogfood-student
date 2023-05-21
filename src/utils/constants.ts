@@ -21,3 +21,5 @@ export const TABS: Tab[] = [
         title: "По скидке"
     }
 ]
+
+export const MAX_PRODUCT_PER_PAGE = 16;

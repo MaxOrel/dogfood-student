@@ -38,13 +38,14 @@ export const ProductPage = () => {
 
 
     return (
-        <>
-            {isLoading
-                ? <Spinner />
-                : !errorState && <Product onProductLike={handleProductLike} />
-            }
-
-            {!isLoading && errorState && <NotFound title="Товар не найден" />}
-        </>
+        <div className="content container">
+            <>
+                {isLoading
+                    ? <Spinner />
+                    : !errorState && <Product onProductLike={handleProductLike} />
+                }
+                {!isLoading && errorState && <NotFound title="Товар не найден" />}
+            </>
+        </div>
     )
 }

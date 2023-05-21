@@ -3,6 +3,7 @@
     line-height: 1.5;
     font-weight: 800;
     margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .buttonBack {
@@ -10,4 +11,13 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
+    text-decoration: none;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.iconBack {
+    fill: currentColor;
 }

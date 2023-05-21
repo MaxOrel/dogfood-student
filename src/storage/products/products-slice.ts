@@ -1,6 +1,6 @@
 import { SerializedError, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isLiked } from '../../utils/products';
-import { TABS_ID } from '../../utils/constants';
+import { MAX_PRODUCT_PER_PAGE, TABS_ID } from '../../utils/constants';
 import { createAppAsyncThunk } from '../hook';
 import { TProductResponseDto, TProductsResponseDto, TUserResponseDto } from '../../utils/api';
 import { TProduct } from '../../types';
@@ -13,6 +13,8 @@ type TProductsState = {
     total: number,
     loading: boolean,
     error: SerializedError | null | unknown,
+    currentPage: number;
+    productPerPage: number;
 }
 
 
@@ -23,6 +25,8 @@ const initialState: TProductsState = {
     total: 0,
     loading: true,
     error: null,
+    currentPage: 1,
+    productPerPage: MAX_PRODUCT_PER_PAGE
 }
 
 export const sliceName = 'products';
@@ -82,7 +86,18 @@ const productSlice = createSlice({
                     state.currentSort = TABS_ID.DISCOUNT;
 
             }
+        },
+
+        onClickCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
+        },
+        onPaginateNext: (state) => {
+            state.currentPage++;
+        },
+        onPaginatePrev: (state) => {
+            state.currentPage--;
         }
+
     },
     extraReducers: (builder) => {
         builder
@@ -123,5 +138,5 @@ const productSlice = createSlice({
     }
 })
 
-export const { sortedProducts } = productSlice.actions;
+export const { sortedProducts, onClickCurrentPage, onPaginateNext, onPaginatePrev } = productSlice.actions;
 export default productSlice.reducer;

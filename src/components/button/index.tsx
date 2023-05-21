@@ -1,22 +1,26 @@
 import cn from 'classnames';
 
 import s from './styles.module.css';
-import { MouseEvent, ReactNode } from 'react';
+import './styles.css';
+import { DetailedHTMLProps, HTMLAttributes, MouseEvent, ReactNode } from 'react';
+
 export enum ButtonVariant {
     "primary" = "primary",
     "secondary" = "secondary",
     "border" = "border",
+    "ligth" = "ligth"
 }
 
-interface IButtonProps {
+interface IButtonProps extends DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
     variant: ButtonVariant,
     children: ReactNode,
+    disabled?: boolean,
     href?: string,
     extraClass?: string,
     htmlType?: "submit" | "reset" | "button",
     action?: () => void
 }
-export const Button = ({ variant, children, href, extraClass = "", htmlType = "button", action }: IButtonProps) => {
+export const Button = ({ variant, children, href, extraClass = "", htmlType = "button", action, ...props }: IButtonProps) => {
 
     function handleClick(e: MouseEvent<HTMLAnchorElement>) {
         href && e.preventDefault();
@@ -39,6 +43,7 @@ export const Button = ({ variant, children, href, extraClass = "", htmlType = "b
                 {children}
             </a>
             : <button
+                {...props}
                 type={htmlType}
                 className={cn(
                     s.button,

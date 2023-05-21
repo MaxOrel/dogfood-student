@@ -1,0 +1,15 @@
+.formRow {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.formRowHalf {
+    width: 50%;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}

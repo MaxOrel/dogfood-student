@@ -6,6 +6,7 @@ import FormButton from '../form-button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispath } from '../../storage/hook';
 import { registerUser } from '../../storage/user/user-slice';
+import s from './styles.module.css';
 
 type FormValues = {
     email: string;
@@ -90,8 +91,8 @@ function Register({ onNavigateLogin }: IFormRegisterProps) {
 
             <p className="infoText">Регистрируясь на сайте, вы соглашаетесь с нашими Правилами и Политикой конфиденциальности и соглашаетесь на информационную рассылку.</p>
 
-            <FormButton type="submit" color="pramary">Зарегистрироваться</FormButton>
-            <FormButton type="button" color="secondary" onClick={onNavigateLogin}>Войти</FormButton>
+            <FormButton type="submit" color="pramary" extraClass={s.formButton}>Зарегистрироваться</FormButton>
+            <FormButton type="button" color="secondary" onClick={onNavigateLogin} extraClass={s.formButton}>Войти</FormButton>
         </Form>
 
     );

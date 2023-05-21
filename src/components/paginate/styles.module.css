@@ -1,0 +1,39 @@
+.paginate {
+    display: flex;
+    align-items: center;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.item {
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 1px solid #CFD8DC;
+    color: #1A1A1A;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.active {
+    background-color: #FFE44D;
+    border-color: #FFE44D;
+}
+
+.link {
+    display: block;
+    text-decoration: none;
+    color: currentColor;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 14px;
+    min-width: 48px;
+}

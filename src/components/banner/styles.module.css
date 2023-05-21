@@ -1,0 +1,64 @@
+.banner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    color: #FFFFFF;
+    border-radius: 20px;
+    padding-top: 52px;
+    padding-bottom: 52px;
+    background-position: top right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.title {
+    font-weight: 900;
+    font-size: 47px;
+    line-height: 50px;
+    max-width: 50%;
+    color: currentColor;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.subtitle {
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 32px;
+    max-width: 50%;
+    color: currentColor;
+    margin: 0;
+}
+
+.price {
+    color: currentColor;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 32px;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.big {
+    padding-left: 87px;
+    padding-right: 87px;
+    width: 100%;
+}
+
+.middle {
+    padding-left: 42px;
+    padding-right: 42px;
+    width: 50%;
+}
+
+.middle .title {
+    font-size: 32px;
+    line-height: 90%;
+    margin-bottom: 8px;
+}
+
+.middle .subtitle {
+    font-size: 20px;
+    line-height: 24px;
+}

@@ -4,6 +4,7 @@ import Form from '../form';
 import FormInput from '../form-input';
 import FormButton from '../form-button';
 import { useAppDispath } from '../../storage/hook';
+import s from './styles.module.css';
 type FormValues = {
     email: string;
     group: string;
@@ -44,7 +45,7 @@ function ResetPassword() {
 
             <p className="infoText">Срок действия временного пароля 24 ч.</p>
 
-            <FormButton type="submit" color="pramary">Отправить</FormButton>
+            <FormButton type="submit" color="pramary" extraClass={s.formButton}>Отправить</FormButton>
         </Form>
 
     );

@@ -2,6 +2,7 @@ import { SerializedError, createAsyncThunk, createSlice } from '@reduxjs/toolkit
 import { setLocalData } from '../../utils/localStorage';
 import { createAppAsyncThunk } from '../hook';
 import { TUserResponseDto, UserAuthBodyDto, UserBodyDto, UserRegisterBodyDto } from '../../utils/api';
+import { getActionName, isActionPending, isActionRejected } from '../../utils/redux';
 
 
 type TUserState = {
@@ -13,6 +14,8 @@ type TUserState = {
     loginUserError: SerializedError | null | unknown,
     checkTokenUserRequest: boolean,
     checkTokenUserError: SerializedError | null | unknown,
+    editedUserRequest: boolean,
+    editedUserError: SerializedError | null | unknown,
 }
 
 const initialState: TUserState = {
@@ -27,6 +30,11 @@ const initialState: TUserState = {
 
     checkTokenUserRequest: false,
     checkTokenUserError: null,
+
+    editedUserRequest: false,
+    editedUserError: null,
+
+
 }
 
 export const sliceName = 'user';
@@ -64,6 +72,23 @@ export const loginUser = createAppAsyncThunk<TUserResponseDto, UserAuthBodyDto>(
 )
 
 
+export const editedUser = createAppAsyncThunk<TUserResponseDto, UserBodyDto>(
+    `${sliceName}/editedUser`,
+    async function (dataUser, { fulfillWithValue, rejectWithValue, extra: api }) {
+        try {
+            const data = await api.setUserInfo(dataUser);
+            if (data.name) {
+                return fulfillWithValue(data);
+            } else {
+                return rejectWithValue(data)
+            }
+        }
+        catch (err) {
+            return rejectWithValue(err)
+        }
+    }
+)
+
 export const checkTokenUser = createAppAsyncThunk<TUserResponseDto, string>(
     `${sliceName}/checkTokenUser`,
     async function (token, { fulfillWithValue, rejectWithValue, extra: api, dispatch }) {
@@ -94,45 +119,30 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(registerUser.pending, (state) => {
-                state.registerUserRequest = true;
-                state.registerUserError = null;
-            })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.registerUserRequest = false;
-            })
-            .addCase(registerUser.rejected, (state, action) => {
-                state.registerUserError = action.payload;
-                state.registerUserRequest = false;
-            })
-
-
-            .addCase(loginUser.pending, (state) => {
-                state.loginUserRequest = true;
-                state.loginUserError = null;
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.loginUserRequest = false;
             })
-            .addCase(loginUser.rejected, (state, action) => {
-                state.loginUserError = action.payload;
-                state.loginUserRequest = false;
-            })
-
-
-            .addCase(checkTokenUser.pending, (state) => {
-                state.checkTokenUserRequest = true;
-                state.checkTokenUserError = null;
-            })
             .addCase(checkTokenUser.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.checkTokenUserRequest = false;
             })
-            .addCase(checkTokenUser.rejected, (state, action) => {
-                state.checkTokenUserError = action.payload;
-                state.checkTokenUserRequest = false;
+            .addCase(editedUser.fulfilled, (state, action) => {
+                state.data = action.payload;
+                state.editedUserRequest = false;
+            })
+
+            .addMatcher(isActionPending, (state, action) => {
+                state = { ...state, [`${getActionName(action.type)}Request`]: true };
+                state = { ...state, [`${getActionName(action.type)}Error`]: null };
+            })
+            .addMatcher(isActionRejected, (state, action) => {
+                state = { ...state, [`${getActionName(action.type)}Request`]: false };
+                state = { ...state, [`${getActionName(action.type)}Error`]: action.payload };
             })
 
     }

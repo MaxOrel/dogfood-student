@@ -5,7 +5,9 @@
     line-height: 20px;
     border-radius: 55px;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
     transition: background-color .3s;
     border: 2px solid transparent;
     cursor: pointer;
@@ -19,6 +21,16 @@
     background-color: #FFAA0D;
     color: #F44336;
 }
+
+.button_type_ligth {
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+}
+
+.button_type_ligth:hover {
+    background-color: #ECEFF1;
+}
+
 
 .button_type_secondary {
     background-color: transparent;
@@ -38,4 +50,8 @@
 
 .button_type_border:hover {
     border-color: #7B8E98;
+}
+
+.button:disabled {
+    color: #CFD8DC;
 }

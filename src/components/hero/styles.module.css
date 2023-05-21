@@ -1,0 +1,27 @@
+.banner {
+    background-color: #FFE44D;
+
+    padding-top: 70px;
+    padding-bottom: 240px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 83%);
+}
+
+.container {
+    background-image: url('./img/banner.png');
+    background-position: right top 44%;
+    background-repeat: no-repeat;
+}
+
+.title {
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 52px;
+    max-width: 425px;
+}
+
+.subtitle {
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+    max-width: 425px;
+}

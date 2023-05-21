@@ -1,16 +1,28 @@
 .form {
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 0 20px;
+}
+
+.center {
+    align-items: center;
+}
+
+.rigth {
+    align-items: flex-end;
+}
+
+.left {
+    align-items: flex-start;
 
 }
 
 .title {
     color: #000000;
     margin: 24px 0px;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 28px;
+    line-height: 32px;
+    font-weight: 800;
     display: flex;
     align-items: center;
 }

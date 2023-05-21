@@ -70,8 +70,8 @@ function Login({ onNavigateRegister, onNavigateReset }: IFormLoginProps) {
             <p className={cn('infoText', s.link)} onClick={onNavigateReset}>Восстановить пароль</p>
 
 
-            <FormButton type="submit" color="pramary">Войти</FormButton>
-            <FormButton type="button" color="secondary" onClick={onNavigateRegister}>Регистрация</FormButton>
+            <FormButton type="submit" color="pramary" extraClass={s.formButton}>Войти</FormButton>
+            <FormButton type="button" color="secondary" onClick={onNavigateRegister} extraClass={s.formButton}>Регистрация</FormButton>
         </Form>
 
     );

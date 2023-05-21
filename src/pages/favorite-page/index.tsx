@@ -11,9 +11,9 @@ export const FavoritesPage = () => {
     const goods = useAppSelector(state => state.products.favoriteProducts)
 
     return (
-        <>
+        <div className="content container">
             <ContentHeader title="Избранное" textButton="Назад" />
             <CardList goods={goods} />
-        </>
+        </div>
     )
 }

@@ -22,6 +22,7 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "swiper": "^9.2.0",
+    "validator": "^13.9.0",
     "web-vitals": "^3.1.0"
   },
   "scripts": {
@@ -32,7 +33,6 @@
     "deploy-gh": "cross-env PUBLIC_URL=./ REACT_APP_GH_PAGES=true npm run build && gh-pages -d build",
     "deploy": "cross-env PUBLIC_URL=/ npm run build && scp -r ./build/* root@212.193.56.158:/home/sber/frontend"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/validator": "^13.7.17",
     "cross-env": "^7.0.3",
     "gh-pages": "^5.0.0"
   }

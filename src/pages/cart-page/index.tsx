@@ -10,7 +10,8 @@ function CartPage() {
     const productsCart = useAppSelector(state => state.cart.data);
     const navigate = useNavigate();
     return (
-        <>
+        <div className="content container">
+
             {productsCart.length === 0
                 ? <NotFound buttonText='На главную' title="В корзине нет товаров" buttonAction={() => { navigate('/') }} />
                 : (
@@ -21,7 +22,7 @@ function CartPage() {
                     </div>
                 )
             }
-        </>
+        </div>
 
     );
 }
